@@ -1,0 +1,102 @@
+public/trips/singapore.svg
+  s_44622d612b20b7::t_2696c35a353cf3 1
+src/components/shell/nav.ts
+  s_44622d612b20b7::t_78e7324eaa236e 1,25
+docs/UCP_CAPABILITY_MATRIX.md
+  s_44622d612b20b7::t_a8b9d681e0884e 26
+src/app/globals.css
+  s_44622d612b20b7::t_7623504bb30307 10
+src/app/api/playground/trips/plan/route.ts
+  s_44622d612b20b7::t_eb37c6be0c8c11 1-10
+src/app/(trips)/trips/[id]/page.tsx
+  s_44622d612b20b7::t_8b3517fe06b295 25-28,31-35,39-49,51,53-54,59,63-66,68,70-71,73,77,88-89,92-94,100
+  s_44622d612b20b7::t_240efc9d2fb930 1-24,29-30,36-38,50,52,55-58,60-62,67,69,72,74-76,78-87,90-91,95-99,101-102
+tests/unit/trips.test.ts
+  s_44622d612b20b7::t_b783ec8227da6a 1-5,7-41,43-111,113-123
+  s_44622d612b20b7::t_b3e2c905fafccc 6,42
+  s_44622d612b20b7::t_bdf920df2fadf9 112
+src/trips/types.ts
+  s_44622d612b20b7::t_b457f7681cdb16 71
+  s_44622d612b20b7::t_1a9dcaa170e52b 1-70,72-108
+docs/TRIPS.md
+  s_44622d612b20b7::t_a8b9d681e0884e 1-67
+README.md
+  s_44622d612b20b7::t_a8b9d681e0884e 19,37-38,54
+src/components/trips/planner-flow.tsx
+  s_44622d612b20b7::t_56fd22a8d4dc1a 1-4,6-50,52,55,58,60-71,77-86,88,90,92-95,98-102,104-106,109,112-115,117-119,123-124,130-135,137,141-142,145-146,150-151,155-160
+  s_44622d612b20b7::t_ac416bf4139e0b 5,51,53-54,56-57,59,72-76,87,89,91,96-97,103,107-108,110-111,116,120-122,125-129,136,138-140,143-144,147-149,152-154
+src/components/trips/trip-card.tsx
+  s_44622d612b20b7::t_ddaeedbe744819 6,9-10,12,14-19,21-23
+  s_44622d612b20b7::t_0cb6498e93dccb 1-5,7-8,11,13,20,24-28
+src/app/(trips)/apple.css
+  s_44622d612b20b7::t_ddaeedbe744819 1-130
+public/trips/jaipur.svg
+  s_44622d612b20b7::t_2696c35a353cf3 1
+public/trips/manali.svg
+  s_44622d612b20b7::t_2696c35a353cf3 1
+src/merchant/catalog/data.ts
+  s_44622d612b20b7::t_1908102543ba91 26-27,69-102
+  s_44622d612b20b7::t_30717a59584c05 103
+public/trips/goa.svg
+  s_44622d612b20b7::t_2696c35a353cf3 1
+public/trips/paris.svg
+  s_44622d612b20b7::t_2696c35a353cf3 1
+src/components/trips/book-panel.tsx
+  s_44622d612b20b7::t_8b3517fe06b295 86,88-89,111-112,115-116,119,136,142,150-152,154
+  s_44622d612b20b7::t_0cb6498e93dccb 1-85,87,90-110,113-114,117-118,120-135,137-141,143-149,153,155-166
+src/components/checkout/confirmation-card.tsx
+  s_44622d612b20b7::t_74629909fb4db9 84-88
+tests/components/planner-flow.test.tsx
+  s_44622d612b20b7::t_d89494e4fb735d 50,53
+  s_44622d612b20b7::t_afae7cbdb85d09 1-49,51-52,54-100
+tests/integration/env.ts
+  s_44622d612b20b7::t_343e15a398669b 38-39,93-94
+public/trips/santorini.svg
+  s_44622d612b20b7::t_2696c35a353cf3 1
+tests/integration/catalog.test.ts
+  s_44622d612b20b7::t_586554c6b95991 2,28
+src/app/(trips)/trips/page.tsx
+  s_44622d612b20b7::t_ddaeedbe744819 11-15,20-23,25,30-37
+  s_44622d612b20b7::t_240efc9d2fb930 1-10,16-19,24,26-29,38-43
+src/app/(trips)/layout.tsx
+  s_44622d612b20b7::t_240efc9d2fb930 1,3-5,14-17,19,21-24
+  s_44622d612b20b7::t_ddaeedbe744819 2,6-8,18,20
+  s_44622d612b20b7::t_71f3e702eeb6d5 9-13
+public/trips/bali.svg
+  s_44622d612b20b7::t_2696c35a353cf3 1
+src/trips/planner.ts
+  s_44622d612b20b7::t_f0a63184083f34 1-28,30-62,64,68-106
+  s_44622d612b20b7::t_bdf920df2fadf9 29,63,65-67
+src/merchant/checkout/render.ts
+  s_44622d612b20b7::t_375ecc282cf828 47-48,51-53
+tests/integration/trips.test.ts
+  s_44622d612b20b7::t_bd9a02c08a3122 1-2,4-11,13-14,16-48,50-115
+  s_44622d612b20b7::t_aa83da1e2aaf63 49
+  s_44622d612b20b7::t_b3e2c905fafccc 3,12,15
+src/app-services/trips.ts
+  s_44622d612b20b7::t_74629909fb4db9 1-36
+src/app/api/playground/trips/book/route.ts
+  s_44622d612b20b7::t_eb37c6be0c8c11 1-33
+public/trips/kyoto.svg
+  s_44622d612b20b7::t_2696c35a353cf3 1
+src/lib/docs.ts
+  s_44622d612b20b7::t_a8b9d681e0884e 21
+src/trips/samples.ts
+  s_44622d612b20b7::t_73a98c49f8f878 1-369
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "cfa4d4d39d8836c2ba9c81fb336836a841e0919d",
+  "prompts": {},
+  "sessions": {
+    "s_44622d612b20b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ca2ecaa5-1d51-4a2b-b1f5-31235f070c90",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "vipul sharma <vipul.sharma@tiket.com>"
+    }
+  }
+}
