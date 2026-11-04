@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mock Tokenizer handler configuration (SIMULATED)",
+  "description": "Config advertised by the demo's simulated payment handler. Modeled on the Processor Tokenizer example in the UCP specification. Accepts published test credentials only; never real card data.",
+  "type": "object",
+  "required": ["environment", "business_id", "tokenize_url"],
+  "properties": {
+    "simulated": { "const": true },
+    "environment": { "enum": ["sandbox"] },
+    "business_id": { "type": "string" },
+    "tokenize_url": { "type": "string", "format": "uri" }
+  }
+}
