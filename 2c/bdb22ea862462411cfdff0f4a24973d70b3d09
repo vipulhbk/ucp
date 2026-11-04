@@ -1,0 +1,737 @@
+public/schemas/mock_tokenizer.json
+  s_44622d612b20b7::t_6e8ba3caff0d49 1-13
+tests/integration/payment.test.ts
+  s_44622d612b20b7::t_f61266b385e726 1-230
+src/lib/fidelity.ts
+  s_44622d612b20b7::t_f01f05d769d11e 1-59
+tests/integration/bff-flow.test.ts
+  s_44622d612b20b7::t_61daf4239bdaae 8,46,72,87-107,111,119,130
+  s_44622d612b20b7::t_bac189867ae79b 1-7,9-45,47-71,73-86,108-110,112-118,120-129,131-172,176-186
+  s_44622d612b20b7::t_7322ece84688ec 173-175
+src/components/shell/page-header.tsx
+  s_44622d612b20b7::t_e78534c1510deb 1-29
+src/merchant/origins.ts
+  s_44622d612b20b7::t_f4c9f517d01502 1-5
+  s_44622d612b20b7::t_8e16b6f9743744 6-7
+src/platform/profile-variants.ts
+  s_44622d612b20b7::t_5fc620b65495fe 13,37-38
+  s_44622d612b20b7::t_cd6f8475a97eca 24-30
+  s_44622d612b20b7::t_6510fc54be7ad0 1-12,14-23,31-36,39-58
+src/platform/orders.ts
+  s_44622d612b20b7::t_cd6f8475a97eca 1-61
+src/app/api/mock-psp/tokenize/route.ts
+  s_44622d612b20b7::t_ab9c48d9083a74 1-25
+src/app/api/ucp/v1/checkout-sessions/route.ts
+  s_44622d612b20b7::t_ab9c48d9083a74 1-3
+src/app/(dashboard)/scenarios/page.tsx
+  s_44622d612b20b7::t_a9021d18a42a38 1-24
+src/merchant/checkout/state-machine.ts
+  s_44622d612b20b7::t_54ab34ae5105e5 1-49
+src/app/(dashboard)/agent/agent-panel.tsx
+  s_44622d612b20b7::t_df6f8c2c429e01 1-39,43-223
+  s_44622d612b20b7::t_228e8f20b18a8e 40-42
+src/app/(dashboard)/validator/validator-panel.tsx
+  s_44622d612b20b7::t_5f8e49c4937912 1-70,76,78-114,117-122,134-168,170-173,175-182,184-280
+  s_44622d612b20b7::t_365872da6e4486 71-75,77
+  s_44622d612b20b7::t_2fd703f30c493c 115-116
+  s_44622d612b20b7::t_bd0566df5343ff 123-133,169,174,183
+src/merchant/checkout/fulfillment.ts
+  s_44622d612b20b7::t_dde31b56aa4570 1-45
+tests/unit/safe-fetch.test.ts
+  s_44622d612b20b7::t_cdcf9ce09eedff 1-45
+src/observability/redact.ts
+  s_44622d612b20b7::t_9dd283170b8738 1-55
+src/app/(dashboard)/payments/page.tsx
+  s_44622d612b20b7::t_56252791a4f2bf 3-5,7,21-22
+  s_44622d612b20b7::t_04ac0a62287dad 1-2,6,8-20
+src/components/exchange/exchange-panel.tsx
+  s_44622d612b20b7::t_e867366f285bff 1-48
+src/merchant/http.ts
+  s_44622d612b20b7::t_545e232f517db2 1-4,6-7,10-18,20-57,59-63,65-96,98-133,140-148,150-160,163-190,192-196,198-205,209-210
+  s_44622d612b20b7::t_f96d6899717e7a 5,64,149,191,197
+  s_44622d612b20b7::t_3c87cf5a7e2bc5 8-9,58,161-162,206-208
+  s_44622d612b20b7::t_2f69b7447dcdd6 134-139
+  s_44622d612b20b7::t_865c9437a23493 19,97
+src/app-services/validator/targets.ts
+  s_44622d612b20b7::t_e83293feeb3a67 1-46
+  s_44622d612b20b7::t_c662a2b6f85b6e 47-60
+tests/components/error-states.test.tsx
+  s_44622d612b20b7::t_f025b7667273db 1-34
+src/merchant/signing-key.ts
+  s_44622d612b20b7::t_6e8ba3caff0d49 1-17
+public/catalog/boom_speaker.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+src/app/api/playground/checkout/authorize/route.ts
+  s_44622d612b20b7::t_36784a0bac8aef 1-13
+src/merchant/checkout/service.ts
+  s_44622d612b20b7::t_cdbb619b3baf49 1-138,140-144,146-151,155-308
+  s_44622d612b20b7::t_f3e2b660ca407e 139,145,152-154
+src/lib/api.ts
+  s_44622d612b20b7::t_e867366f285bff 1-41
+src/app/api/playground/scenarios/[id]/run/route.ts
+  s_44622d612b20b7::t_94ae1734c6752c 1-11
+src/app/api/playground/scenarios/route.ts
+  s_44622d612b20b7::t_94ae1734c6752c 1-4
+src/app/api/playground/agent/reset/route.ts
+  s_44622d612b20b7::t_edd30720549585 1-5
+tests/unit/docs.test.tsx
+  s_44622d612b20b7::t_40f015549aa8e6 85,111,116
+  s_44622d612b20b7::t_0a16a04a2e7990 1-84,86-110,112-115,117-134
+src/merchant/checkout/types.ts
+  s_44622d612b20b7::t_ea5d8212ed3af8 1-67,72-77
+  s_44622d612b20b7::t_3c87cf5a7e2bc5 68-71
+src/ucp/profile.ts
+  s_44622d612b20b7::t_6e8ba3caff0d49 1-133
+.gitignore
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1-41
+src/components/ui/card.tsx
+  s_44622d612b20b7::t_e67d668f43c815 1-102
+src/lib/inspector-shared.ts
+  s_44622d612b20b7::t_6a0412b02f4807 1-19
+src/app/(dashboard)/catalog/page.tsx
+  s_44622d612b20b7::t_56252791a4f2bf 3-5,7,21-22
+  s_44622d612b20b7::t_04ac0a62287dad 1-2,6,8-20
+src/app/api/playground/validator/targets/route.ts
+  s_44622d612b20b7::t_c662a2b6f85b6e 1-14
+docs/SECURITY_DESIGN.md
+  s_44622d612b20b7::t_29ebc7af619e6b 34-40
+  s_44622d612b20b7::t_21dc8e164ff93f 1-33,41-71
+src/components/shell/not-built.tsx
+  s_44622d612b20b7::t_e78534c1510deb 1-21
+src/platform/tokenize.ts
+  s_44622d612b20b7::t_9f53a1874cea33 1-51
+src/app-services/checkout-flow.ts
+  s_44622d612b20b7::t_36784a0bac8aef 1-91
+public/catalog/studio_monitor_pair.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+src/app/api/playground/inspector/replay/route.ts
+  s_44622d612b20b7::t_592aa966e233a6 1-13
+tests/unit/pricing.test.ts
+  s_44622d612b20b7::t_dd719017beffbc 1-90
+src/app/api/playground/scenarios/[id]/route.ts
+  s_44622d612b20b7::t_94ae1734c6752c 1-10
+src/ucp/errors.ts
+  s_44622d612b20b7::t_51938e2db098fb 1-75
+src/app/(dashboard)/discovery/page.tsx
+  s_44622d612b20b7::t_94739e5c91711c 1-22
+tests/unit/catalog.test.ts
+  s_44622d612b20b7::t_e672e3a4dfb9a9 28-33
+  s_44622d612b20b7::t_dd719017beffbc 1-27,34-43
+tests/unit/platform-credential.test.ts
+  s_44622d612b20b7::t_dd719017beffbc 1-18
+src/components/shell/nav.ts
+  s_44622d612b20b7::t_e78534c1510deb 2-13,15,26-28
+  s_44622d612b20b7::t_7e6e418afd9f55 18-20
+  s_44622d612b20b7::t_66ac18e5289378 21-22
+  s_44622d612b20b7::t_524ffd419bc9e9 25
+  s_44622d612b20b7::t_a9021d18a42a38 1,16-17
+  s_44622d612b20b7::t_9b5f5332e9e7b0 14
+  s_44622d612b20b7::t_5f8e49c4937912 23-24
+public/catalog/glide_mouse.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+tests/integration/agent.test.ts
+  s_44622d612b20b7::t_2f69b7447dcdd6 165
+  s_44622d612b20b7::t_6e5b9cd3f7c41f 1-10,12-164,166-278
+  s_44622d612b20b7::t_6f18d7d48686ed 11
+src/app/(dashboard)/architecture/start.tsx
+  s_44622d612b20b7::t_1ae84ee2b7751b 1-10
+tests/unit/intent.test.ts
+  s_44622d612b20b7::t_452eb890229e24 1-89
+src/merchant/orders/label.ts
+  s_44622d612b20b7::t_2b9b71b0b34242 1
+src/config.ts
+  s_44622d612b20b7::t_96a3414712a6fb 1-76
+src/app/api/playground/session/info/route.ts
+  s_44622d612b20b7::t_e867366f285bff 1-16
+tests/integration/admin-bff.test.ts
+  s_44622d612b20b7::t_61daf4239bdaae 14-15
+  s_44622d612b20b7::t_77ce4d1bc6b488 1-13,16-128
+src/platform/agent/intent.ts
+  s_44622d612b20b7::t_452eb890229e24 1-128
+src/lib/defer.ts
+  s_44622d612b20b7::t_3c87cf5a7e2bc5 1-6,8-11,13-21,23,25-27,29-34
+  s_44622d612b20b7::t_bb3a9b8e95c3a2 7,12,22,24,28
+docs/API_DESIGN.md
+  s_44622d612b20b7::t_bcf0e8837f7ac5 48-49
+  s_44622d612b20b7::t_03f9146a11fc80 1-47,50-58,60-85,89-91,101,103-115
+  s_44622d612b20b7::t_29ebc7af619e6b 59,96-100,102
+  s_44622d612b20b7::t_a6c6c862b031c2 92-95
+  s_44622d612b20b7::t_239434d1e9cc20 86-88
+src/lib/doc-links.ts
+  s_44622d612b20b7::t_524ffd419bc9e9 1-28
+vitest.config.mts
+  s_44622d612b20b7::t_cdcf9ce09eedff 1-6,9-12,14-16
+  s_44622d612b20b7::t_23a116da5482a8 7-8
+  s_44622d612b20b7::t_b4682e4c78381d 13
+tests/integration/ucp-client.test.ts
+  s_44622d612b20b7::t_879b3ef553607c 1-163
+src/persistence/store.ts
+  s_44622d612b20b7::t_96a3414712a6fb 1-38
+src/app-services/platform-session.ts
+  s_44622d612b20b7::t_fea16fc767be77 9,15-22,48,52,72,74,99-100
+  s_44622d612b20b7::t_a33952c97e1ed9 106-109
+  s_44622d612b20b7::t_9f53a1874cea33 1-8,10-14,23-47,49-51,53-71,73,75-98,101-105,110
+src/merchant/pricing.ts
+  s_44622d612b20b7::t_dde31b56aa4570 1-173
+src/app-services/scenarios/types.ts
+  s_44622d612b20b7::t_c3609abc8cfb31 1-59
+docs/UCP_SPECIFICATION_MAPPING.md
+  s_44622d612b20b7::t_1c10db645e254b 1-70
+src/app/(dashboard)/inspector/inspector-panel.tsx
+  s_44622d612b20b7::t_6a0412b02f4807 1-3,5-29,31,38-222
+  s_44622d612b20b7::t_9b5f5332e9e7b0 4,30,32-37
+src/app/api/ucp/v1/checkout-sessions/[id]/cancel/route.ts
+  s_44622d612b20b7::t_ab9c48d9083a74 1-5
+src/observability/recorder.ts
+  s_44622d612b20b7::t_4110a41f270365 54,57-63,69
+  s_44622d612b20b7::t_9dd283170b8738 1-12,17-41,43,47,53,64,66-68,70-72,74-75
+  s_44622d612b20b7::t_f4c9f517d01502 42,48-52,73
+  s_44622d612b20b7::t_10b99320a6584b 13-16,44-46,55-56,65
+src/app/api/playground/session/reset/route.ts
+  s_44622d612b20b7::t_ac6a3d4f11f441 1-5
+src/ucp/negotiation.ts
+  s_44622d612b20b7::t_51938e2db098fb 1-129
+src/app/api/playground/ucp/call/route.ts
+  s_44622d612b20b7::t_ac6a3d4f11f441 1-31
+src/app/globals.css
+  s_44622d612b20b7::t_156bcc6eeadfb7 2-3,5,10,12-48,51-83,86-117,119-129
+  s_44622d612b20b7::t_1ae84ee2b7751b 130-145
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1,4,6-9,11,49-50,84-85,118
+src/components/ui/badge.tsx
+  s_44622d612b20b7::t_e67d668f43c815 1-51
+src/platform/webhook-handler.ts
+  s_44622d612b20b7::t_a33952c97e1ed9 3,64-104
+  s_44622d612b20b7::t_cd6f8475a97eca 1-2,4-63,105-201
+src/lib/format.ts
+  s_44622d612b20b7::t_e867366f285bff 1-7
+src/merchant/orders/orders.ts
+  s_44622d612b20b7::t_83bc185fba20e6 8-9,23-25,27,51-52,54,61,84,86,111-122
+  s_44622d612b20b7::t_7e6e418afd9f55 49
+  s_44622d612b20b7::t_2b9b71b0b34242 1-7,10-22,26,28-48,50,53,55-60,62-83,85,87-110,123
+src/platform/discovery.ts
+  s_44622d612b20b7::t_71a1d63bdabf53 1-81,83-165
+  s_44622d612b20b7::t_1d87ec863c4c4b 82
+tests/integration/scenarios.test.ts
+  s_44622d612b20b7::t_a9021d18a42a38 8
+  s_44622d612b20b7::t_6dc2756a1cb0c7 1-7,9-208
+src/app/(dashboard)/orders/orders-panel.tsx
+  s_44622d612b20b7::t_323071e54c58ac 46-51
+  s_44622d612b20b7::t_66ac18e5289378 1-45,52-169
+tests/components/validator-and-agent.test.tsx
+  s_44622d612b20b7::t_db140c185fe6cd 57,75
+  s_44622d612b20b7::t_336ca2a9378938 1-9,13-56,58-74,76-141
+  s_44622d612b20b7::t_7aae723b2ac5fb 10-12
+tests/unit/redact.test.ts
+  s_44622d612b20b7::t_b7bb5dc45fe034 1-29
+tests/integration/catalog.test.ts
+  s_44622d612b20b7::t_6e509a6d503f7b 1-34,41-55
+  s_44622d612b20b7::t_e672e3a4dfb9a9 35-40
+src/app-services/admin.ts
+  s_44622d612b20b7::t_bd5b1db7b74f24 1-78
+src/app/api/ucp/v1/carts/route.ts
+  s_44622d612b20b7::t_ab9c48d9083a74 1-3
+src/lib/docs.ts
+  s_44622d612b20b7::t_524ffd419bc9e9 1-65
+tests/integration/rate-limit.test.ts
+  s_44622d612b20b7::t_f61266b385e726 1-28
+tests/unit/authority-binding.test.ts
+  s_44622d612b20b7::t_b7bb5dc45fe034 1-73
+AGENTS.md
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1-9
+docs/TROUBLESHOOTING.md
+  s_44622d612b20b7::t_bce538a7123fa0 1-55
+components.json
+  s_44622d612b20b7::t_156bcc6eeadfb7 1-25
+public/catalog/trek_backpack.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+public/next.svg
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1
+src/merchant/checkout/render.ts
+  s_44622d612b20b7::t_ea5d8212ed3af8 1-3,5-171,173-175
+  s_44622d612b20b7::t_2b9b71b0b34242 4,172
+src/app-services/agent-service.ts
+  s_44622d612b20b7::t_edd30720549585 1-56
+public/catalog/retro_discman.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+src/app/api/playground/checkout/consent/route.ts
+  s_44622d612b20b7::t_36784a0bac8aef 3,6,9-11,15-16
+  s_44622d612b20b7::t_ac6a3d4f11f441 1-2,4-5,7-8,12-14,17
+src/merchant/negotiate-request.ts
+  s_44622d612b20b7::t_f4c9f517d01502 1-64
+tests/unit/state-machine.test.ts
+  s_44622d612b20b7::t_dd719017beffbc 1-37
+package.json
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1-8,15-16,24,26,38-39,41,45-47,50-51,55,59-60
+  s_44622d612b20b7::t_deb06cd40c7ede 18-20,23,25,27,33-34,36-37,40,48-49,54,56-58
+  s_44622d612b20b7::t_96436f0a41d241 52
+  s_44622d612b20b7::t_156bcc6eeadfb7 17,21,32,35
+  s_44622d612b20b7::t_524ffd419bc9e9 22
+  s_44622d612b20b7::t_8d0c67e02a478f 9,11-14
+  s_44622d612b20b7::t_63d7dd3f5e6ef6 28-30,42-44,53
+  s_44622d612b20b7::t_7f4537ced30298 10
+  s_44622d612b20b7::t_96a3414712a6fb 31
+src/app-services/bff.ts
+  s_44622d612b20b7::t_9f53a1874cea33 1-3,5-16,18-25
+  s_44622d612b20b7::t_36784a0bac8aef 4,17
+src/merchant/webhooks/deps.ts
+  s_44622d612b20b7::t_8e16b6f9743744 1-12
+src/app/api/playground/scenarios/[id]/reset/route.ts
+  s_44622d612b20b7::t_94ae1734c6752c 1-7
+public/catalog/volt_powerbank.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+src/lib/docs-slug.ts
+  s_44622d612b20b7::t_524ffd419bc9e9 1
+tests/components/json-view.test.tsx
+  s_44622d612b20b7::t_f025b7667273db 1-71
+src/app/(dashboard)/inspector/page.tsx
+  s_44622d612b20b7::t_56252791a4f2bf 4-6,8,24-25
+  s_44622d612b20b7::t_9b5f5332e9e7b0 1,20-22
+  s_44622d612b20b7::t_6a0412b02f4807 2-3,7,9-19,23
+tests/setup-dom.ts
+  s_44622d612b20b7::t_2bf455f1d974af 5-7
+  s_44622d612b20b7::t_6256785f6c687b 1-4,8-12
+next.config.ts
+  s_44622d612b20b7::t_deb06cd40c7ede 3-4,6
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1-2,5,7-17
+tests/integration/env.ts
+  s_44622d612b20b7::t_5fc620b65495fe 38-40,45,63-65,111,113-122,159-162
+  s_44622d612b20b7::t_db6819df0b00b1 30-35,84-89,236-243
+  s_44622d612b20b7::t_879b3ef553607c 17-20,36-37,70-73,83,90,222-235,244-252
+  s_44622d612b20b7::t_865c9437a23493 1-16,46-62,91-110,112,123-158,163-221
+  s_44622d612b20b7::t_6dc2756a1cb0c7 25-29,74-78
+  s_44622d612b20b7::t_6e5b9cd3f7c41f 22-24,79-81
+  s_44622d612b20b7::t_77ce4d1bc6b488 41-44,66-69
+  s_44622d612b20b7::t_d2e77738751479 21,82
+src/persistence/memory.ts
+  s_44622d612b20b7::t_96a3414712a6fb 1-45,58-104
+  s_44622d612b20b7::t_1d87ec863c4c4b 46-57
+public/catalog/aurora_anc.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+docs/SDD.md
+  s_44622d612b20b7::t_90c0ac460c2927 1-202
+docs/ARCHITECTURE.md
+  s_44622d612b20b7::t_8eee8943f6fb68 1-53,55-96,99-112
+  s_44622d612b20b7::t_daa27ac8ba7db1 54,97-98
+src/app/(dashboard)/catalog/catalog-panel.tsx
+  s_44622d612b20b7::t_04ac0a62287dad 1-117
+src/app/api/ucp/v1/carts/[id]/route.ts
+  s_44622d612b20b7::t_ab9c48d9083a74 1-4
+src/app/api/playground/inspector/events/route.ts
+  s_44622d612b20b7::t_ac6a3d4f11f441 1,3
+  s_44622d612b20b7::t_592aa966e233a6 2,4-5
+src/ucp/schemas.ts
+  s_44622d612b20b7::t_71a1d63bdabf53 1-18
+src/app/(dashboard)/layout.tsx
+  s_44622d612b20b7::t_e78534c1510deb 1-9,11-16
+  s_44622d612b20b7::t_f01f05d769d11e 10
+docs/PRD.md
+  s_44622d612b20b7::t_3e8e5b3d562537 1-91
+tests/unit/http-signatures.test.ts
+  s_44622d612b20b7::t_379789809cb2f0 1-12,14-173
+  s_44622d612b20b7::t_820a8b19a3db6d 13
+src/app/api/ucp/v1/carts/[id]/cancel/route.ts
+  s_44622d612b20b7::t_ab9c48d9083a74 1-3
+src/app/api/ucp/v1/catalog/search/route.ts
+  s_44622d612b20b7::t_ab9c48d9083a74 1-3
+src/app/api/playground/payments/cards/route.ts
+  s_44622d612b20b7::t_ac6a3d4f11f441 1-6
+public/catalog/keystone_keyboard.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+public/catalog/pulse_wireless.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+src/app-services/validator/validate.ts
+  s_44622d612b20b7::t_fb60eb4b79c82d 1-73
+tests/unit/validator.test.ts
+  s_44622d612b20b7::t_9255a950c20f9f 1-173
+src/app/api/playground/agent/route.ts
+  s_44622d612b20b7::t_edd30720549585 1-4
+src/merchant/ids.ts
+  s_44622d612b20b7::t_ea5d8212ed3af8 1-11
+src/app/(dashboard)/validator/page.tsx
+  s_44622d612b20b7::t_56252791a4f2bf 4-6,8,23-24
+  s_44622d612b20b7::t_5f8e49c4937912 1-3,7,9-22
+docs/UCP_GLOSSARY.md
+  s_44622d612b20b7::t_7409a70eeed78e 1-36
+src/app/(dashboard)/webhooks/page.tsx
+  s_44622d612b20b7::t_66ac18e5289378 1-2,6,8-20
+  s_44622d612b20b7::t_56252791a4f2bf 3-5,7,21-22
+src/app-services/scenarios/helpers.ts
+  s_44622d612b20b7::t_c3609abc8cfb31 1-47
+src/app/api/playground/validator/validate/route.ts
+  s_44622d612b20b7::t_c662a2b6f85b6e 1-13
+src/platform/agent/types.ts
+  s_44622d612b20b7::t_698200a5295653 87-88
+  s_44622d612b20b7::t_601064a6972bcc 1-86,89-102
+src/components/ui/scroll-area.tsx
+  s_44622d612b20b7::t_e67d668f43c815 1-54
+src/app/(dashboard)/payments/payment-panel.tsx
+  s_44622d612b20b7::t_04ac0a62287dad 1-151
+src/app-services/scenarios/engine.ts
+  s_44622d612b20b7::t_94ae1734c6752c 1,3-74
+  s_44622d612b20b7::t_6f18d7d48686ed 2
+src/app/api/playground/inspector/export/route.ts
+  s_44622d612b20b7::t_592aa966e233a6 1-9
+src/app/api/playground/validator/schema/[id]/route.ts
+  s_44622d612b20b7::t_c662a2b6f85b6e 1-8
+public/catalog/summit_pro_anc.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+src/merchant/webhooks/outbox.ts
+  s_44622d612b20b7::t_5fc620b65495fe 101-102
+  s_44622d612b20b7::t_eb85e80f10d39f 1,3-24,27-100,103-107,109-111,114-115,117-122,124-125,127,156-169,171-174,176-215,218-229
+  s_44622d612b20b7::t_8e16b6f9743744 25-26,170,175,217
+  s_44622d612b20b7::t_a33952c97e1ed9 2,108,112-113,116,123,126,128-155,216
+src/app/api/playground/webhooks/route.ts
+  s_44622d612b20b7::t_bd5b1db7b74f24 1-5
+src/app-services/validator/rules.ts
+  s_44622d612b20b7::t_e83293feeb3a67 1-131
+docs/UCP_RESEARCH.md
+  s_44622d612b20b7::t_daa27ac8ba7db1 17-18,135,141
+  s_44622d612b20b7::t_29ebc7af619e6b 127
+  s_44622d612b20b7::t_dbe800ed736da6 1-16,19-126,128-134,136-140,142-150
+src/components/shell/sidebar.tsx
+  s_44622d612b20b7::t_e78534c1510deb 1-60
+tests/unit/consent.test.ts
+  s_44622d612b20b7::t_879b3ef553607c 1-66
+src/persistence/redis.ts
+  s_44622d612b20b7::t_96a3414712a6fb 1-84
+src/components/ui/button.tsx
+  s_44622d612b20b7::t_156bcc6eeadfb7 1-57
+tests/integration/checkout.test.ts
+  s_44622d612b20b7::t_6e509a6d503f7b 1-91,261-262
+  s_44622d612b20b7::t_e672e3a4dfb9a9 100-101,106-108
+  s_44622d612b20b7::t_cb3c9f4e1f9e73 92-99,102-105,109-260
+src/app/(dashboard)/not-found.tsx
+  s_44622d612b20b7::t_f01f05d769d11e 1-11
+tests/components/inspector-panel.test.tsx
+  s_44622d612b20b7::t_f025b7667273db 1-12,14-112
+  s_44622d612b20b7::t_336ca2a9378938 13
+src/app/(dashboard)/checkout/page.tsx
+  s_44622d612b20b7::t_f2aab8758ecab9 1-3,7,9-23
+  s_44622d612b20b7::t_56252791a4f2bf 4-6,8,24-25
+src/components/ui/tabs.tsx
+  s_44622d612b20b7::t_e67d668f43c815 1-81
+src/app/api/playground/agent/message/route.ts
+  s_44622d612b20b7::t_edd30720549585 1-16
+src/merchant/orders/events.ts
+  s_44622d612b20b7::t_83bc185fba20e6 1-99
+src/app/(dashboard)/scenarios/scenarios-panel.tsx
+  s_44622d612b20b7::t_a9021d18a42a38 1-62,64-68,70-86,88-200
+  s_44622d612b20b7::t_ff93561b582a26 63,69,87
+src/components/docs/markdown.tsx
+  s_44622d612b20b7::t_40f015549aa8e6 7-13,26-33,44,47-49,51-52
+  s_44622d612b20b7::t_524ffd419bc9e9 1-6,14-25,34-43,45-46,50,53-63
+tests/unit/negotiation.test.ts
+  s_44622d612b20b7::t_b7bb5dc45fe034 1-77
+tests/unit/ip-policy.test.ts
+  s_44622d612b20b7::t_b7bb5dc45fe034 1-19
+tests/components/architecture-explorer.test.tsx
+  s_44622d612b20b7::t_6256785f6c687b 1-146
+src/ucp/ip-policy.ts
+  s_44622d612b20b7::t_852201cefd5bcb 1-68
+tests/unit/psp.test.ts
+  s_44622d612b20b7::t_dd719017beffbc 1-67
+src/app/api/platform/webhooks/orders/[platformId]/route.ts
+  s_44622d612b20b7::t_cd6f8475a97eca 1-21
+src/app/(dashboard)/discovery/discovery-panel.tsx
+  s_44622d612b20b7::t_94739e5c91711c 1-10,12,15-224
+  s_44622d612b20b7::t_693d50bc4ff094 11,13-14
+src/app/api/playground/checkout/complete/route.ts
+  s_44622d612b20b7::t_36784a0bac8aef 3,8,12
+  s_44622d612b20b7::t_ac6a3d4f11f441 1-2,4-7,9-11,13
+src/ucp/authority-binding.ts
+  s_44622d612b20b7::t_51938e2db098fb 1-16,19-20,24-63,65-66,68-75,83-102
+  s_44622d612b20b7::t_9dd283170b8738 17-18,21-23,64,67,76-82
+src/app/(dashboard)/page.tsx
+  s_44622d612b20b7::t_56252791a4f2bf 1-4,6-36,39,66-67,93-125
+  s_44622d612b20b7::t_a9021d18a42a38 52-57
+  s_44622d612b20b7::t_5f8e49c4937912 58-63
+  s_44622d612b20b7::t_7e6e418afd9f55 40,44-51,64-65
+  s_44622d612b20b7::t_9b5f5332e9e7b0 37-38,41-43
+  s_44622d612b20b7::t_f01f05d769d11e 5,68-92
+tests/components/confirmation-card.test.tsx
+  s_44622d612b20b7::t_f025b7667273db 1-117
+src/app/api/playground/orders/[id]/action/route.ts
+  s_44622d612b20b7::t_bd5b1db7b74f24 1-18
+src/app/(dashboard)/error.tsx
+  s_44622d612b20b7::t_f01f05d769d11e 1-23
+src/ucp/ucp-agent.ts
+  s_44622d612b20b7::t_51938e2db098fb 1-23
+tests/integration/helpers.ts
+  s_44622d612b20b7::t_cdcf9ce09eedff 1-3,5,13,15-17,26-36,38-45
+  s_44622d612b20b7::t_865c9437a23493 4,6-12,14,18-25,37
+src/ucp/validate.ts
+  s_44622d612b20b7::t_71a1d63bdabf53 1-27
+src/app/api/ucp/v1/checkout-sessions/[id]/route.ts
+  s_44622d612b20b7::t_ab9c48d9083a74 1-8
+src/components/checkout/confirmation-card.tsx
+  s_44622d612b20b7::t_df6f8c2c429e01 1-107
+src/app/api/playground/webhooks/send/route.ts
+  s_44622d612b20b7::t_bd5b1db7b74f24 1-18
+src/components/ui/tooltip.tsx
+  s_44622d612b20b7::t_e67d668f43c815 1-65
+src/app/(dashboard)/webhooks/webhooks-panel.tsx
+  s_44622d612b20b7::t_66ac18e5289378 1-42,49-187
+  s_44622d612b20b7::t_323071e54c58ac 43-48
+tests/unit/fidelity.test.ts
+  s_44622d612b20b7::t_6256785f6c687b 1-26
+src/components/ui/input.tsx
+  s_44622d612b20b7::t_e67d668f43c815 1-19
+src/app/api/cron/webhooks/route.ts
+  s_44622d612b20b7::t_bd5b1db7b74f24 1-17
+.claude/launch.json
+  s_44622d612b20b7::t_8d0c67e02a478f 1-6
+src/app/(dashboard)/checkout/checkout-panel.tsx
+  s_44622d612b20b7::t_2908cd3bf03c76 1-471
+src/lib/architecture.ts
+  s_44622d612b20b7::t_98b733c2f6cbe4 1-166
+src/app-services/session.ts
+  s_44622d612b20b7::t_71a1d63bdabf53 1-27
+src/merchant/catalog/data.ts
+  s_44622d612b20b7::t_dde31b56aa4570 1-73
+src/app-services/validator/examples.ts
+  s_44622d612b20b7::t_db6819df0b00b1 18-19,148,156
+  s_44622d612b20b7::t_fb60eb4b79c82d 1-17,20-147,149-155,157-182
+tsconfig.json
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1-34
+src/app/api/ucp/v1/orders/[id]/route.ts
+  s_44622d612b20b7::t_ab9c48d9083a74 1-5
+src/app/(dashboard)/loading.tsx
+  s_44622d612b20b7::t_f01f05d769d11e 1-13
+tests/stubs/server-only.ts
+  s_44622d612b20b7::t_b7bb5dc45fe034 1
+src/ucp/http-signatures.ts
+  s_44622d612b20b7::t_084e91feb1d14c 170,175
+  s_44622d612b20b7::t_323071e54c58ac 146-149
+  s_44622d612b20b7::t_1a046aca3c1ce9 1-145,150-169,171-174,176-222
+src/app/api/playground/webhooks/retry/route.ts
+  s_44622d612b20b7::t_bd5b1db7b74f24 1-5
+src/merchant/profile.ts
+  s_44622d612b20b7::t_6e8ba3caff0d49 1-13
+src/components/architecture/explorer.tsx
+  s_44622d612b20b7::t_e03ae4443bc9d0 177-178,184
+  s_44622d612b20b7::t_1ae84ee2b7751b 1-86,88-176,179-183,185-237
+  s_44622d612b20b7::t_2bf455f1d974af 87
+src/platform/agent/agent.ts
+  s_44622d612b20b7::t_698200a5295653 110-111,130,132-133
+  s_44622d612b20b7::t_edd30720549585 9
+  s_44622d612b20b7::t_c3609abc8cfb31 39,269-270,295-296
+  s_44622d612b20b7::t_2f69b7447dcdd6 304,324-325,416,438
+  s_44622d612b20b7::t_6e5b9cd3f7c41f 408-415,417-418
+  s_44622d612b20b7::t_b883b3878ed2f9 1-8,10-38,40-109,112-129,131,134-268,271-294,297-303,305-323,326-407,419-437,439-478
+src/platform/consent.ts
+  s_44622d612b20b7::t_1dfac7d31be509 1-117
+scripts/gen-keys.ts
+  s_44622d612b20b7::t_8d0c67e02a478f 1-4
+src/app/api/playground/orders/route.ts
+  s_44622d612b20b7::t_bd5b1db7b74f24 1-5
+src/platform/origins.ts
+  s_44622d612b20b7::t_71a1d63bdabf53 1-8
+tests/unit/ucp-agent.test.ts
+  s_44622d612b20b7::t_b7bb5dc45fe034 1-21
+src/ucp/safe-fetch.ts
+  s_44622d612b20b7::t_852201cefd5bcb 1-34,36-97,100-149
+  s_44622d612b20b7::t_03a620a7c62088 35
+  s_44622d612b20b7::t_6680a95d2861ce 98-99
+src/components/json/json-view.tsx
+  s_44622d612b20b7::t_e78534c1510deb 1-73
+src/platform/ucp-client.ts
+  s_44622d612b20b7::t_1dfac7d31be509 1-28,31-71,74-139,141-144,147-207
+  s_44622d612b20b7::t_fea16fc767be77 72-73,145-146
+  s_44622d612b20b7::t_601064a6972bcc 29-30
+  s_44622d612b20b7::t_698200a5295653 140
+tests/integration/inspector.test.ts
+  s_44622d612b20b7::t_bd0566df5343ff 8
+  s_44622d612b20b7::t_a657479b23fdff 1-7,9-52,54-317
+  s_44622d612b20b7::t_68044feabba11c 53
+src/app/api/playground/agent/profile/route.ts
+  s_44622d612b20b7::t_edd30720549585 1-13
+src/components/ui/separator.tsx
+  s_44622d612b20b7::t_e67d668f43c815 1-24
+src/ucp/constants.ts
+  s_44622d612b20b7::t_51938e2db098fb 1-35,40-57
+  s_44622d612b20b7::t_6510fc54be7ad0 36-39
+public/catalog/echo_wired_studio.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+public/catalog/nova_lamp_limited.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+tests/integration/discovery.test.ts
+  s_44622d612b20b7::t_cdcf9ce09eedff 1-12,14-41,43-56,62-149,153-154,156-164
+  s_44622d612b20b7::t_b956a46d9790ec 57-61
+  s_44622d612b20b7::t_1d87ec863c4c4b 150-152,155
+  s_44622d612b20b7::t_56252791a4f2bf 13
+  s_44622d612b20b7::t_379789809cb2f0 42
+src/components/shell/mobile-nav.tsx
+  s_44622d612b20b7::t_f01f05d769d11e 5-6,10,13,15-30
+  s_44622d612b20b7::t_e78534c1510deb 1-4,7-9,11-12,14,31-32
+src/app-services/inspector.ts
+  s_44622d612b20b7::t_6a0412b02f4807 11,123
+  s_44622d612b20b7::t_8edcdc1d9e03e7 5-6
+  s_44622d612b20b7::t_592aa966e233a6 1-4,7-10,12-122,124-151
+src/app/.well-known/ucp/route.ts
+  s_44622d612b20b7::t_6e8ba3caff0d49 1-9
+src/app/api/platform/profile/route.ts
+  s_44622d612b20b7::t_6e8ba3caff0d49 1,3,5,9-10
+  s_44622d612b20b7::t_6510fc54be7ad0 2,4
+  s_44622d612b20b7::t_cd6f8475a97eca 6-8
+src/merchant/orders/service.ts
+  s_44622d612b20b7::t_f4c9f517d01502 1-14
+tests/integration/webhooks.test.ts
+  s_44622d612b20b7::t_b956a46d9790ec 1,3-22,24-32,35-102,104-180,182-184,186-307
+  s_44622d612b20b7::t_1238423b736bbf 181
+  s_44622d612b20b7::t_bb3a9b8e95c3a2 2,23,33-34,103
+  s_44622d612b20b7::t_1e9c9b95c71e5b 185
+src/app/(dashboard)/agent/page.tsx
+  s_44622d612b20b7::t_56252791a4f2bf 3-5,7,21-22
+  s_44622d612b20b7::t_df6f8c2c429e01 1-2,6,8-20
+src/app/(dashboard)/docs/page.tsx
+  s_44622d612b20b7::t_524ffd419bc9e9 1-4,8-10,12-34
+  s_44622d612b20b7::t_56252791a4f2bf 5-7,11,35-36
+docs/SCENARIOS.md
+  s_44622d612b20b7::t_bce538a7123fa0 1-97
+public/window.svg
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1
+src/app/not-found.tsx
+  s_44622d612b20b7::t_f01f05d769d11e 1-11
+src/merchant/catalog/search.ts
+  s_44622d612b20b7::t_7e6e418afd9f55 1
+  s_44622d612b20b7::t_dde31b56aa4570 2-60,87,89-91
+  s_44622d612b20b7::t_e672e3a4dfb9a9 61-86,88
+src/app/api/playground/discovery/fetch/route.ts
+  s_44622d612b20b7::t_94739e5c91711c 9-11,13
+  s_44622d612b20b7::t_6510fc54be7ad0 8,12
+  s_44622d612b20b7::t_ac6a3d4f11f441 2-4,6,15-16,18,23,25-27
+  s_44622d612b20b7::t_71a1d63bdabf53 1,5,7,14,17,19-22,24
+src/components/ui/textarea.tsx
+  s_44622d612b20b7::t_e67d668f43c815 1-17
+src/app/legal/[slug]/page.tsx
+  s_44622d612b20b7::t_ab9c48d9083a74 1-18
+docs/UCP_CAPABILITY_MATRIX.md
+  s_44622d612b20b7::t_346b279e7d0cab 1-22,24,26-47,49-74
+  s_44622d612b20b7::t_b8f698d2cbf41d 25
+  s_44622d612b20b7::t_34d97c201c2c62 23
+  s_44622d612b20b7::t_29ebc7af619e6b 48
+src/app/layout.tsx
+  s_44622d612b20b7::t_f01f05d769d11e 19
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1-2,5-6,9-10,13-16,24-26
+  s_44622d612b20b7::t_e78534c1510deb 3-4,7-8,11-12,17-18,20-23
+public/globe.svg
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1
+README.md
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 2,7,9,20,22,24,31,41,43,47,49,54
+  s_44622d612b20b7::t_29ebc7af619e6b 15,38-39
+  s_44622d612b20b7::t_239434d1e9cc20 16,36-37,40
+  s_44622d612b20b7::t_bcf0e8837f7ac5 14,32,35
+  s_44622d612b20b7::t_a6c6c862b031c2 17,33-34
+  s_44622d612b20b7::t_16b735d2ad4214 18-19
+  s_44622d612b20b7::t_6eb7c219aa4b59 51-53
+  s_44622d612b20b7::t_daa27ac8ba7db1 1,3-6,8,10-13,21,23,25-30,42,44-46,48,50,55
+src/app/(dashboard)/docs/[slug]/page.tsx
+  s_44622d612b20b7::t_524ffd419bc9e9 1-41
+src/sim/psp.ts
+  s_44622d612b20b7::t_54ab34ae5105e5 1-124
+public/vercel.svg
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1
+src/lib/utils.ts
+  s_44622d612b20b7::t_156bcc6eeadfb7 1
+src/merchant/routes.ts
+  s_44622d612b20b7::t_ab9c48d9083a74 1-37
+tests/unit/architecture.test.ts
+  s_44622d612b20b7::t_98b733c2f6cbe4 1-84
+docs/TESTING.md
+  s_44622d612b20b7::t_bce538a7123fa0 1-34
+src/app/(dashboard)/architecture/page.tsx
+  s_44622d612b20b7::t_1ae84ee2b7751b 1-4,8,10-22
+  s_44622d612b20b7::t_56252791a4f2bf 5-7,9,23-24
+src/app/api/ucp/v1/catalog/lookup/route.ts
+  s_44622d612b20b7::t_ab9c48d9083a74 1-3
+src/ucp/platform-credential.ts
+  s_44622d612b20b7::t_54ab34ae5105e5 1-24
+src/app/api/ucp/v1/checkout-sessions/[id]/complete/route.ts
+  s_44622d612b20b7::t_ab9c48d9083a74 1-5
+src/app-services/scenarios/definitions.ts
+  s_44622d612b20b7::t_54fd356f03685e 1-8,10-120,126-349,351-474,476-569
+  s_44622d612b20b7::t_94ae1734c6752c 9,475
+  s_44622d612b20b7::t_6f18d7d48686ed 121-125
+  s_44622d612b20b7::t_855a403ef21e12 350
+tests/integration/negotiation.test.ts
+  s_44622d612b20b7::t_6e509a6d503f7b 1-79
+eslint.config.mjs
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1-7,29-31
+  s_44622d612b20b7::t_1d87ec863c4c4b 8-28
+src/app/api/playground/payments/tokenize/route.ts
+  s_44622d612b20b7::t_ac6a3d4f11f441 1-31,33
+  s_44622d612b20b7::t_d4b849601a0a5a 32
+src/ucp/keys.ts
+  s_44622d612b20b7::t_9dd283170b8738 9-11,14,16,18-21,23-28,32-34,41,46-47,52,56,63-64,74,78-79,81,83,89
+  s_44622d612b20b7::t_96436f0a41d241 1-8,12-13,15,17,22,29-31,35-40,42-45,48-51,53-55,57-62,65-73,75-77,80,82,84-88
+public/file.svg
+  s_44622d612b20b7::t_d49ab3ea4f0b6f 1
+public/catalog/drift_neckband_anc.svg
+  s_44622d612b20b7::t_e867366f285bff 1
+src/app/(dashboard)/orders/page.tsx
+  s_44622d612b20b7::t_56252791a4f2bf 4-6,8,24-25
+  s_44622d612b20b7::t_66ac18e5289378 1-3,7,9-23
+tests/unit/memory-store.test.ts
+  s_44622d612b20b7::t_b7bb5dc45fe034 1-55
+docs/IMPLEMENTATION_PLAN.md
+  s_44622d612b20b7::t_e6630b31ef5a4d 159-163,165-182
+  s_44622d612b20b7::t_29ebc7af619e6b 23,75-103,195
+  s_44622d612b20b7::t_734c3b1de78305 164
+  s_44622d612b20b7::t_df2bc700fa7174 209-211
+  s_44622d612b20b7::t_bcf0e8837f7ac5 22,44-74,191,193-194
+  s_44622d612b20b7::t_239434d1e9cc20 24,104-131,190,192,198
+  s_44622d612b20b7::t_daa27ac8ba7db1 7,21,31-43,187-189
+  s_44622d612b20b7::t_63b12d1c0e15fc 201
+  s_44622d612b20b7::t_b849491772a11e 26
+  s_44622d612b20b7::t_af2af117cc464e 1-6,8-20,27-30,183-186,199-200,202-208,212-222
+  s_44622d612b20b7::t_a6c6c862b031c2 25,132-158,196-197
+src/persistence/index.ts
+  s_44622d612b20b7::t_96a3414712a6fb 1-16
+src/merchant/catalog/service.ts
+  s_44622d612b20b7::t_f4c9f517d01502 1-5,8,10-20,24-30,32-60,65-68,70-74
+  s_44622d612b20b7::t_e672e3a4dfb9a9 6-7,9,21-23,31,61-64,69
+.env.example
+  s_44622d612b20b7::t_6ccb8cfeeb0ef8 1-36
+package-lock.json
+  s_44622d612b20b7::t_e3d2db44f5e243 1-13013
+src/vendor/ucp-schemas/LICENSE
+  s_44622d612b20b7::t_a90c5f0b229eb3 1-202
+src/vendor/ucp-schemas/PROVENANCE.md
+  s_44622d612b20b7::t_82632f9066349b 1-13
+src/vendor/ucp-schemas/common/types/error_response.json
+  s_44622d612b20b7::t_36bf75150ec8e5 1-28
+src/vendor/ucp-schemas/profile.json
+  s_44622d612b20b7::t_621d82ceb6abb4 1-134
+src/vendor/ucp-schemas/shopping/catalog_lookup.json
+  s_44622d612b20b7::t_b38ccad65c7099 1-201
+src/vendor/ucp-schemas/shopping/catalog_search.json
+  s_44622d612b20b7::t_9264164c563a33 1-75
+src/vendor/ucp-schemas/shopping/checkout.json
+  s_44622d612b20b7::t_d515a027c3d0fc 1-143
+src/vendor/ucp-schemas/shopping/order.json
+  s_44622d612b20b7::t_8c9974e4c2564a 1-120
+src/vendor/ucp-schemas/ucp.json
+  s_44622d612b20b7::t_555b8312530aba 1-341
+src/vendor/ucp-sdk/LICENSE
+  s_44622d612b20b7::t_db8bbaeee0d7e5 1-202
+src/vendor/ucp-sdk/PROVENANCE.md
+  s_44622d612b20b7::t_e077e3ecc842c3 1-14
+src/vendor/ucp-sdk/spec_generated.ts
+  s_44622d612b20b7::t_857ead31152dee 1-4023
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "2cbdb22ea862462411cfdff0f4a24973d70b3d09",
+  "prompts": {},
+  "sessions": {
+    "s_44622d612b20b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ca2ecaa5-1d51-4a2b-b1f5-31235f070c90",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "vipul sharma <vipul.sharma@tiket.com>"
+    }
+  }
+}
