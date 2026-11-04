@@ -18,7 +18,7 @@ export interface DocMeta {
 
 const ROOT = process.cwd();
 const GROUPS: [string, string[]][] = [
-  ["Start here", ["README.md", "PRD.md", "SCENARIOS.md"]],
+  ["Start here", ["README.md", "PRD.md", "SCENARIOS.md", "TRIPS.md"]],
   ["Protocol", ["UCP_RESEARCH.md", "UCP_SPECIFICATION_MAPPING.md", "UCP_CAPABILITY_MATRIX.md", "UCP_GLOSSARY.md"]],
   ["Design", ["SDD.md", "ARCHITECTURE.md", "API_DESIGN.md", "SECURITY_DESIGN.md"]],
   ["Delivery", ["IMPLEMENTATION_PLAN.md", "TESTING.md", "TROUBLESHOOTING.md"]],

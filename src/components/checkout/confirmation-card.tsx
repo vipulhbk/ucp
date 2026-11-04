@@ -81,7 +81,11 @@ export function ConfirmationCard({ checkoutId, expectedTotal, cards, defaultCard
           <dl className="grid grid-cols-[1fr_auto] gap-x-4 text-xs">
             <dt>Subtotal</dt><dd className="text-right font-mono">{rupees(t("subtotal") ?? 0, co.currency)}</dd>
             <dt>Discounts</dt><dd className="text-right font-mono">{rupees(discounts, co.currency)}</dd>
-            <dt>Shipping{opt ? ` (${opt.title})` : ""}</dt><dd className="text-right font-mono">{rupees(t("fulfillment") ?? 0, co.currency)}</dd>
+            {co.fulfillment && (
+              <>
+                <dt>Shipping{opt ? ` (${opt.title})` : ""}</dt><dd className="text-right font-mono">{rupees(t("fulfillment") ?? 0, co.currency)}</dd>
+              </>
+            )}
             <dt>Tax</dt><dd className="text-right font-mono">{rupees(t("tax") ?? 0, co.currency)}</dd>
             <dt className="font-medium">Total</dt><dd className="text-right font-mono font-medium" data-testid="confirm-total">{rupees(liveTotal ?? 0, co.currency)}</dd>
           </dl>

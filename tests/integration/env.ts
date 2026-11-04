@@ -35,6 +35,8 @@ import * as valValidate from "@/app/api/playground/validator/validate/route";
 import * as valSchema from "@/app/api/playground/validator/schema/[id]/route";
 import * as bffReset from "@/app/api/playground/session/reset/route";
 import * as bffTokenize from "@/app/api/playground/payments/tokenize/route";
+import * as tripPlan from "@/app/api/playground/trips/plan/route";
+import * as tripBook from "@/app/api/playground/trips/book/route";
 import * as webhookRoute from "@/app/api/platform/webhooks/orders/[platformId]/route";
 import * as bffOrders from "@/app/api/playground/orders/route";
 import * as bffWebhooks from "@/app/api/playground/webhooks/route";
@@ -88,6 +90,8 @@ export async function startServer() {
     "/api/playground/validator/validate": (r) => valValidate.POST(r),
     "/api/playground/validator/schema/:id": (r, p) => valSchema.GET(r, { params: Promise.resolve({ id: p.id! }) } as never),
     "/api/playground/payments/tokenize": (r) => bffTokenize.POST(r),
+    "/api/playground/trips/plan": (r) => tripPlan.POST(r),
+    "/api/playground/trips/book": (r) => tripBook.POST(r),
   });
 }
 

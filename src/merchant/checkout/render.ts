@@ -44,10 +44,13 @@ export function renderCheckout(rec: CheckoutRecord, ctx: MerchantCtx, extra: Mes
   const pre = priceCheckout({ lines: lineInputs, codes, fulfillmentAmount: 0 });
   const net = pre.subtotal + pre.totals.filter((t) => t.type === "items_discount" || t.type === "discount").reduce((a, t) => a + t.amount, 0);
 
-  // 2) fulfillment
+  // 2) fulfillment (skipped when every line is a digital item; a mixed cart still needs shipping for the whole order)
+  const allDigital = inputs.lines.length > 0 && inputs.lines.every((l) => findVariant(l.itemId)?.product.digital === true);
   let fulfillmentBody: Record<string, unknown> | undefined;
   let selectedOption: ShippingOptionDef | undefined;
-  if (fulfillmentActive) {
+  if (allDigital) {
+    // Digital vouchers only (for example travel bookings): nothing to ship, so no fulfillment block and no shipping prompts.
+  } else if (fulfillmentActive) {
     const sh = inputs.shipping ?? { destinations: [], selectedDestinationId: null, selectedOptionId: null };
     const lineIds = inputs.lines.map((l) => l.id);
     const dests = sh.destinations;

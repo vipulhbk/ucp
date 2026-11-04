@@ -1,4 +1,4 @@
-import { Activity, Boxes, ListChecks, FileJson, Gauge, Network, PackageSearch, Radar, Receipt, ScrollText, ShieldCheck, ShoppingCart, Bot, Wallet, type LucideIcon } from "lucide-react";
+import { Activity, Boxes, ListChecks, FileJson, Gauge, Network, PackageSearch, Plane, Radar, Receipt, ScrollText, ShieldCheck, ShoppingCart, Bot, Wallet, type LucideIcon } from "lucide-react";
 
 export interface NavItem {
   href: string;
@@ -22,6 +22,7 @@ export const NAV: NavItem[] = [
   { href: "/webhooks", label: "Webhook Inspector", icon: Receipt, status: "ready" },
   { href: "/inspector", label: "Protocol Inspector", icon: Activity, status: "ready" },
   { href: "/validator", label: "Schema Validator", icon: ShieldCheck, status: "ready" },
+  { href: "/trips", label: "Trip Planner demo", icon: Plane, status: "ready" },
   { href: "/docs", label: "Documentation", icon: ScrollText, status: "ready" },
 ];
 

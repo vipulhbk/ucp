@@ -23,6 +23,8 @@ export interface CatalogProduct {
   tags: string[];
   rating: { value: number; count: number };
   image: string;
+  /** Delivered electronically (a booking voucher): no shipping address or delivery option is collected for it. */
+  digital?: boolean;
   variants: CatalogVariant[];
 }
 
@@ -63,6 +65,41 @@ export const PRODUCTS: CatalogProduct[] = [
   p("retro_discman", "Retro Portable CD Player", "Discontinued model, no longer sold.", "Audio > Players", ["cd", "retro"], [3.9, 40], 299900, 0, { delisted: true }),
   p("studio_monitor_pair", "Studio Monitor Speaker Pair", "Powered 5-inch studio monitors, pair.", "Audio > Speakers", ["speaker", "studio", "wired"], [4.6, 120], 1499900, 4),
 ];
+
+/** Bookable travel components for the Trip Genie demo. Digital vouchers, so checkout needs no shipping step. Prices are illustrative. */
+const travel = (kind: "stay" | "pass", trip: string, destination: string, title: string, description: string, tags: string[], price: number): CatalogProduct => ({
+  id: `prod_${kind}_${trip}`,
+  handle: `${kind}-${trip}`,
+  title,
+  description,
+  category: kind === "stay" ? "Travel > Stays" : "Travel > Experiences",
+  tags: [kind === "stay" ? "stay" : "experience", "travel", "trip", destination.toLowerCase(), ...tags],
+  rating: { value: kind === "stay" ? 4.5 : 4.6, count: 120 + (trip.length * 37) % 300 },
+  image: `/trips/${trip}.svg`,
+  digital: true,
+  variants: [{ id: `var_${kind}_${trip}`, sku: `${kind}-${trip}`.toUpperCase().replace(/_/g, "-"), title: kind === "stay" ? "Package" : "Pass", price, stock: 25 }],
+});
+
+export const TRAVEL_PRODUCTS: CatalogProduct[] = [
+  travel("stay", "paris", "Paris", "Paris: Left Bank boutique stay, 3 nights", "Three nights in a boutique hotel near Saint-Germain, breakfast included. Demo voucher; not a real reservation.", ["france", "romantic", "art"], 2850000),
+  travel("pass", "paris", "Paris", "Paris: Museum and Seine cruise pass", "Skip-the-line museum entries and an evening river cruise. Demo voucher.", ["france", "art", "romantic"], 650000),
+  travel("stay", "goa", "Goa", "Goa: Beachside stay, 4 nights", "Four nights in a beach-shack style resort near Calangute, breakfast included. Demo voucher.", ["india", "beaches", "nightlife"], 1400000),
+  travel("pass", "goa", "Goa", "Goa: Water sports and sunset cruise pass", "Parasailing, banana boat and a Mandovi sunset cruise. Demo voucher.", ["india", "beaches", "sports"], 450000),
+  travel("stay", "jaipur", "Jaipur", "Jaipur: Heritage haveli stay, 3 nights", "Three nights in a restored haveli inside the old city, breakfast included. Demo voucher.", ["india", "art", "shopping"], 1650000),
+  travel("pass", "jaipur", "Jaipur", "Jaipur: Forts and crafts guided pass", "Guided Amber Fort visit and a block-printing workshop. Demo voucher.", ["india", "art", "shopping"], 350000),
+  travel("stay", "bali", "Bali", "Bali: Ubud villa stay, 5 nights", "Five nights in a private-pool villa in Ubud, breakfast included. Demo voucher.", ["indonesia", "scenic", "romantic"], 2400000),
+  travel("pass", "bali", "Bali", "Bali: Temples and rice terraces day tours", "Two guided day tours covering temples and terraced rice fields. Demo voucher.", ["indonesia", "scenic", "art"], 700000),
+  travel("stay", "kyoto", "Kyoto", "Kyoto: Machiya townhouse stay, 4 nights", "Four nights in a traditional wooden townhouse in Higashiyama. Demo voucher.", ["japan", "art", "scenic"], 3000000),
+  travel("pass", "kyoto", "Kyoto", "Kyoto: Temples and tea experience pass", "Guided temple morning and a tea-ceremony session. Demo voucher.", ["japan", "art"], 600000),
+  travel("stay", "singapore", "Singapore", "Singapore: Family suite stay, 4 nights", "Four nights in a family suite near Marina Bay, breakfast included. Demo voucher.", ["kids", "family", "shopping"], 2900000),
+  travel("pass", "singapore", "Singapore", "Singapore: Family attractions pass", "Entry to a zoo, a gardens dome and a sea-aquarium for a family of four. Demo voucher.", ["kids", "family"], 800000),
+  travel("stay", "manali", "Manali", "Manali: Mountain-view cottage stay, 3 nights", "Three nights in a wooden cottage above the Beas valley, breakfast included. Demo voucher.", ["india", "scenic", "sports"], 950000),
+  travel("pass", "manali", "Manali", "Manali: Adventure pack (rafting and paragliding)", "River rafting and a tandem paragliding flight. Demo voucher.", ["india", "sports", "scenic"], 550000),
+  travel("stay", "santorini", "Santorini", "Santorini: Caldera-view stay, 4 nights", "Four nights in a cave-style suite in Oia with caldera views. Demo voucher.", ["greece", "romantic", "scenic"], 3300000),
+  travel("pass", "santorini", "Santorini", "Santorini: Caldera sunset sailing", "Half-day catamaran sailing with a sunset dinner. Demo voucher.", ["greece", "romantic", "beaches"], 650000),
+];
+
+PRODUCTS.push(...TRAVEL_PRODUCTS);
 
 export function findVariant(id: string): { product: CatalogProduct; variant: CatalogVariant } | undefined {
   for (const product of PRODUCTS) {

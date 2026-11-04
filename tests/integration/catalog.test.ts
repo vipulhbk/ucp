@@ -1,4 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { PRODUCTS } from "@/merchant/catalog/data";
 import { startServer, TestPlatform } from "./env";
 
 let srv: Awaited<ReturnType<typeof startServer>>;
@@ -24,7 +25,7 @@ describe("catalog search / lookup over UCP REST", () => {
   });
   it("paginates with a cursor", async () => {
     const a = await p.call("POST", "/api/ucp/v1/catalog/search", { pagination: { limit: 3 } }, {}, { key: false });
-    expect(a.body.pagination).toMatchObject({ has_next_page: true, total_count: 13 });
+    expect(a.body.pagination).toMatchObject({ has_next_page: true, total_count: PRODUCTS.length });
     const b = await p.call("POST", "/api/ucp/v1/catalog/search", { pagination: { limit: 3, cursor: a.body.pagination.cursor } }, {}, { key: false });
     expect(b.body.products[0].id).not.toBe(a.body.products[0].id);
   });
