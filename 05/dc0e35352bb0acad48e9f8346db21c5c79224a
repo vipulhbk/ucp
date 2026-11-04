@@ -1,0 +1,51 @@
+src/components/shell/nav.ts
+  s_44622d612b20b7::t_59451b1ba28219 25
+README.md
+  s_44622d612b20b7::t_59451b1ba28219 19,37
+src/components/trips/trip-card.tsx
+  s_44622d612b20b7::t_98a28d52afac4c 2,7-9,11,13-14,17,20-22,26-28
+src/components/trips/planner-flow.tsx
+  s_44622d612b20b7::t_d8adae600137fd 5,53,57,70,87,96,98,109,111,137-139
+src/app/(trips)/trips/page.tsx
+  s_44622d612b20b7::t_98a28d52afac4c 3,7-12,15,18-25,30,32-33,35,38-47
+  s_44622d612b20b7::t_59451b1ba28219 5
+  s_44622d612b20b7::t_156fa597c155fd 6
+src/components/trips/trip-shelf.tsx
+  s_44622d612b20b7::t_98a28d52afac4c 1-29
+src/components/trips/book-panel.tsx
+  s_44622d612b20b7::t_bd5e7e4549ad9c 115
+  s_44622d612b20b7::t_1ab0c1c36371fe 86,92-100,102-107,109,111,121,136,140,154
+docs/TRIPS.md
+  s_44622d612b20b7::t_59451b1ba28219 1
+docs/UCP_CAPABILITY_MATRIX.md
+  s_44622d612b20b7::t_59451b1ba28219 26
+tests/components/planner-flow.test.tsx
+  s_44622d612b20b7::t_bf439da7e43b27 94
+src/app/(trips)/trips/[id]/page.tsx
+  s_44622d612b20b7::t_ef52c8b1be6b25 69
+  s_44622d612b20b7::t_bd5e7e4549ad9c 100
+  s_44622d612b20b7::t_59451b1ba28219 17
+  s_44622d612b20b7::t_1ab0c1c36371fe 3,20-26,31-36,38-50,52,54-62,64,66-68,70-73,75-90,92-99,101-129,131-147,149-152,154
+src/app/(trips)/layout.tsx
+  s_44622d612b20b7::t_98a28d52afac4c 2,8,10,12-14,19-23
+src/app/(trips)/apple.css
+  s_44622d612b20b7::t_ccaeed3af78951 123-251
+src/components/trips/theme-toggle.tsx
+  s_44622d612b20b7::t_ccaeed3af78951 1-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "05dc0e35352bb0acad48e9f8346db21c5c79224a",
+  "prompts": {},
+  "sessions": {
+    "s_44622d612b20b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ca2ecaa5-1d51-4a2b-b1f5-31235f070c90",
+        "model": "unknown"
+      },
+      "human_author": "vipul sharma <vipul.sharma@tiket.com>"
+    }
+  }
+}
