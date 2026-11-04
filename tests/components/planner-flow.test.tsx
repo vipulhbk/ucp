@@ -91,7 +91,7 @@ describe("planner flow", () => {
 describe("trip card", () => {
   it("links to the trip and shows what the merchant would charge, with a decorative cover", () => {
     const t = TRIPS[0]!;
-    render(<TripCard trip={{ ...t, lines: [], packageTotal: 3923500 }} />);
+    render(<TripCard trip={{ ...t, packageTotal: 3923500 }} />);
     const card = screen.getByTestId("trip-card");
     expect(card).toHaveAttribute("href", `/trips/${t.id}`);
     expect(card).toHaveTextContent("₹39,235.00");

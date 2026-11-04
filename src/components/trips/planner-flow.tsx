@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BffError, post } from "@/lib/api";
@@ -50,11 +50,11 @@ export function PlannerFlow() {
 
   const pill = "h-11 rounded-full px-6 text-[15px]";
   return (
-    <div className="ap-card mx-auto w-full max-w-xl p-6 text-left sm:p-8" data-testid="planner">
+    <div className="ap-card mx-auto w-full max-w-xl overflow-hidden p-6 text-left shadow-[var(--ap-shadow-hover)] sm:p-9" data-testid="planner">
       <ol className="mb-6 flex items-center justify-center gap-2 text-xs text-muted-foreground" aria-label="Progress">
         {([["where", "Where"], ["about", "About you"], ["result", "Your trip"]] as const).map(([id, label], i) => (
           <li key={id} aria-current={step === id ? "step" : undefined} className={`flex items-center gap-2 ${step === id ? "font-semibold text-foreground" : ""}`}>
-            <span className={`size-1.5 rounded-full ${step === id ? "bg-primary" : "bg-muted-foreground/40"}`} aria-hidden />
+            <span className={`h-1.5 rounded-full transition-all duration-500 ${step === id ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/40"}`} aria-hidden />
             {label}
             {i < 2 && <span aria-hidden className="mx-1 h-px w-5 bg-border" />}
           </li>
@@ -67,7 +67,7 @@ export function PlannerFlow() {
             e.preventDefault();
             setStep("about");
           }}
-          className="space-y-4"
+          className="ap-rise space-y-4"
         >
           <label htmlFor="destination" className="ap-title block text-center text-2xl">Where do you want to go?</label>
           <input id="destination" value={destination} onChange={(e) => setDestination(e.target.value)} maxLength={80} placeholder="Paris, France" className="ap-field text-center text-lg" />
@@ -84,7 +84,7 @@ export function PlannerFlow() {
             e.preventDefault();
             void submit();
           }}
-          className="space-y-6"
+          className="ap-rise space-y-7"
         >
           <h2 className="ap-title text-center text-2xl">About you</h2>
           <fieldset>
@@ -93,8 +93,9 @@ export function PlannerFlow() {
               {INTERESTS.map((i) => {
                 const on = interests.includes(i);
                 return (
-                  <label key={i} className={`cursor-pointer rounded-full px-4 py-2 text-sm transition ${on ? "bg-primary text-primary-foreground" : "bg-muted hover:bg-secondary"} ${!on && full ? "cursor-not-allowed opacity-40" : ""} has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--ring)]`}>
+                  <label key={i} className={`ap-press inline-flex cursor-pointer items-center gap-1.5 rounded-full px-4 py-2 text-sm transition-colors duration-300 ${on ? "bg-primary text-primary-foreground" : "bg-muted hover:bg-secondary"} ${!on && full ? "cursor-not-allowed opacity-40" : ""} has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--ring)]`}>
                     <input type="checkbox" className="sr-only" checked={on} disabled={!on && full} onChange={() => toggle(i)} />
+                    {on && <Check className="size-3.5" strokeWidth={3} aria-hidden />}
                     {INTEREST_LABEL[i]}
                   </label>
                 );
@@ -105,9 +106,9 @@ export function PlannerFlow() {
 
           <fieldset>
             <legend className="mb-3 w-full text-center text-sm">How much do you want to spend per day?</legend>
-            <div className="mx-auto flex w-fit rounded-full bg-muted p-1" role="radiogroup">
+            <div className="mx-auto flex w-fit rounded-full bg-muted p-1" role="radiogroup" aria-label="Budget per day">
               {BUDGET_TIERS.map((b) => (
-                <label key={b} title={BUDGET_LABEL[b].range} className={`cursor-pointer rounded-full px-4 py-1.5 text-sm transition ${budget === b ? "bg-card font-medium shadow-sm" : "text-muted-foreground"} has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-[var(--ring)]`}>
+                <label key={b} title={BUDGET_LABEL[b].range} className={`cursor-pointer rounded-full px-4 py-1.5 text-sm transition-all duration-300 ${budget === b ? "bg-card font-semibold shadow-sm" : "text-muted-foreground hover:text-foreground"} has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-[var(--ring)]`}>
                   <input type="radio" name="budget" className="sr-only" checked={budget === b} onChange={() => setBudget(b)} />
                   {BUDGET_LABEL[b].symbol}
                 </label>
@@ -133,7 +134,9 @@ export function PlannerFlow() {
       )}
 
       {step === "result" && plan && (
-        <div className="space-y-5" data-testid="plan-result">
+        <div className="ap-rise space-y-5" data-testid="plan-result">
+          {/* eslint-disable-next-line @next/next/no-img-element -- decorative static SVG */}
+          <img src={plan.trip.cover} alt="" className="aspect-[16/9] w-full rounded-2xl object-cover" />
           <div className="text-center">
             <Badge variant="secondary" className="mb-3">{plan.source.name}</Badge>
             <h2 className="ap-title text-3xl">{plan.trip.title}</h2>

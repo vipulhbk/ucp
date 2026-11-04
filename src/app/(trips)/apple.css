@@ -120,6 +120,135 @@
   border-color: var(--border);
   border-radius: 0.75rem;
 }
+/* ---- Motion: one easing curve (a soft spring-like ease-out) used everywhere, short and never decorative-only. ---- */
+.apple {
+  --ap-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ap-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.08), 0 24px 48px rgba(0, 0, 0, 0.1);
+}
+.dark .apple {
+  --ap-shadow-hover: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 24px 48px rgba(0, 0, 0, 0.6);
+}
+@keyframes ap-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.apple .ap-rise {
+  animation: ap-rise 0.7s var(--ap-ease) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+.apple .ap-lift {
+  transition: transform 0.45s var(--ap-ease), box-shadow 0.45s var(--ap-ease);
+}
+.apple .ap-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ap-shadow-hover);
+}
+.apple .ap-lift:active {
+  transform: translateY(-1px) scale(0.99);
+}
+.apple .ap-zoom img {
+  transition: transform 0.9s var(--ap-ease);
+}
+.apple .ap-lift:hover .ap-zoom img {
+  transform: scale(1.05);
+}
+.apple .ap-press {
+  transition: transform 0.2s var(--ap-ease), opacity 0.2s;
+}
+.apple .ap-press:active {
+  transform: scale(0.97);
+}
+
+/* ---- Surfaces ---- */
+.apple .ap-balance {
+  text-wrap: balance;
+}
+/* Soft colour wash behind the hero, like a product page's ambient light. Decorative and aria-hidden. */
+.apple .ap-aura {
+  position: absolute;
+  inset: -10% -10% auto;
+  height: 38rem;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 50% at 18% 30%, color-mix(in oklab, #5ac8fa 32%, transparent), transparent 70%),
+    radial-gradient(38% 46% at 82% 18%, color-mix(in oklab, #bf5af2 24%, transparent), transparent 70%),
+    radial-gradient(44% 50% at 55% 75%, color-mix(in oklab, #ff9f0a 20%, transparent), transparent 72%);
+  filter: blur(36px);
+}
+.dark .apple .ap-aura {
+  opacity: 0.55;
+}
+.apple .ap-gradient-text {
+  background: linear-gradient(120deg, var(--foreground) 25%, color-mix(in oklab, var(--primary) 78%, var(--foreground)) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* iOS "inset grouped" list: one rounded surface, hairline separators between rows. */
+.apple .ap-group {
+  background: var(--card);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: var(--ap-shadow);
+}
+.apple .ap-group > * + * {
+  border-top: 1px solid var(--border);
+}
+/* Rounded-square symbol tile, as in iOS Settings. */
+.apple .ap-tile {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  border-radius: 0.55rem;
+  background: var(--tile, var(--primary));
+  color: #fff;
+}
+.apple .ap-chip {
+  border-radius: 9999px;
+  padding: 0.45rem 1rem;
+  font-size: 0.875rem;
+  background: var(--card);
+  color: var(--foreground);
+  box-shadow: inset 0 0 0 1px var(--border);
+  transition: background 0.25s var(--ap-ease), color 0.25s var(--ap-ease), transform 0.2s var(--ap-ease);
+  white-space: nowrap;
+}
+.apple .ap-chip:hover {
+  background: var(--secondary);
+}
+.apple .ap-chip[aria-pressed="true"] {
+  background: var(--foreground);
+  color: var(--background);
+  box-shadow: none;
+}
+.apple .ap-chip:active {
+  transform: scale(0.96);
+}
+.apple .ap-noscrollbar {
+  scrollbar-width: none;
+}
+.apple .ap-noscrollbar::-webkit-scrollbar {
+  display: none;
+}
+.apple button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.apple .ap-field:focus {
+  outline: 2px solid var(--ring);
+  outline-offset: 0;
+  background: var(--card);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .apple *,
   .apple *::before,

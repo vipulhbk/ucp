@@ -1,5 +1,4 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { findVariant } from "@/merchant/catalog/data";
 import { priceCheckout } from "@/merchant/pricing";
 import { TRIPS } from "@/trips/samples";
 import { startServer, Browser } from "./env";

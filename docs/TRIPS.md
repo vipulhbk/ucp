@@ -1,4 +1,4 @@
-# Trip Planner demo
+# Tiket AI Trips (trip planner demo)
 
 A consumer-style front end (`/trips`) on top of the UCP demo: plan a trip from a short form or pick one of eight ready-made
 itineraries, then book it through the protocol against the simulated merchant. It reuses the existing platform, merchant,

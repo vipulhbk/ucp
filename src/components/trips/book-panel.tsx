@@ -83,29 +83,42 @@ export function BookPanel({ tripId, tripTitle, lines, previewTotal }: { tripId: 
   };
 
   return (
-    <aside className="ap-card h-fit space-y-4 p-6 lg:sticky lg:top-16" aria-label="Book this trip" data-testid="book-panel">
+    <aside className="ap-card h-fit space-y-5 p-6 lg:sticky lg:top-28" aria-label="Book this trip" data-testid="book-panel">
       <div className="flex items-center justify-between">
         <h2 className="ap-title flex items-center gap-2 text-xl"><Ticket className="size-5" aria-hidden /> Book this trip</h2>
         <Badge variant="secondary">Simulated merchant</Badge>
       </div>
 
+      <ol className="flex items-center gap-2 text-[11px] text-muted-foreground" aria-label="Booking progress">
+        {([["Details", !checkout], ["Authorize", !!checkout && !order], ["Booked", !!order]] as const).map(([label, on]) => (
+          <li key={label} aria-current={on ? "step" : undefined} className={`flex flex-1 flex-col gap-1.5 ${on ? "font-semibold text-foreground" : ""}`}>
+            <span className={`h-1 rounded-full transition-colors duration-500 ${on ? "bg-primary" : "bg-muted"}`} aria-hidden />
+            {label}
+          </li>
+        ))}
+      </ol>
+
       {!checkout && (
-        <>
-          <ul className="space-y-1.5 text-sm">
+        <div className="ap-rise space-y-5">
+          <div>
+            <div className="ap-display text-4xl">{rupees(previewTotal)}</div>
+            <div className="mt-1 text-xs text-muted-foreground">estimated total, after the merchant&rsquo;s discount and GST</div>
+          </div>
+          <ul className="ap-group text-sm">
             {lines.map((l) => (
-              <li key={l.variantId} className="flex items-start justify-between gap-3">
+              <li key={l.variantId} className="flex items-start justify-between gap-3 px-4 py-3">
                 <span>{l.quantity} × {l.title}</span>
-                <span className="font-mono text-xs text-muted-foreground">{rupees(l.unitPrice * l.quantity)}</span>
+                <span className="shrink-0 font-mono text-xs text-muted-foreground">{rupees(l.unitPrice * l.quantity)}</span>
               </li>
             ))}
           </ul>
-          <p className="text-xs text-muted-foreground">Preview only. The merchant prices the checkout itself; with its automatic discount and GST the total comes to about <strong>{rupees(previewTotal)}</strong>. These are demo vouchers for fictional packages, delivered electronically, so there is no shipping.</p>
+          <p className="text-xs leading-relaxed text-muted-foreground">Preview only. The merchant prices the checkout itself, and the total it returns is the one you authorize. These are demo vouchers for fictional packages, delivered electronically, so there is no shipping.</p>
           <form
             onSubmit={(e) => {
               e.preventDefault();
               void book();
             }}
-            className="space-y-2"
+            className="space-y-3"
           >
             <label className="block text-xs">
               <span className="mb-1 block text-muted-foreground">First name</span>
@@ -120,11 +133,11 @@ export function BookPanel({ tripId, tripTitle, lines, previewTotal }: { tripId: 
               {busy && <Loader2 className="size-4 animate-spin" aria-hidden />} Create the booking via UCP
             </Button>
           </form>
-        </>
+        </div>
       )}
 
       {checkout && !order && (
-        <div className="space-y-3">
+        <div className="ap-rise space-y-3">
           <div className="flex items-center gap-2 text-xs">
             <Badge variant="outline" className="font-mono">{checkout.status}</Badge>
             <span className="text-muted-foreground">checkout {checkout.id}</span>
@@ -138,7 +151,7 @@ export function BookPanel({ tripId, tripTitle, lines, previewTotal }: { tripId: 
       )}
 
       {order && (
-        <div className="space-y-3" role="status" data-testid="booked">
+        <div className="ap-rise space-y-3" role="status" data-testid="booked">
           <div className="flex items-start gap-2 rounded-2xl bg-muted p-4 text-sm">
             <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-600 dark:text-emerald-400" aria-hidden />
             <div>
