@@ -1,0 +1,57 @@
+src/app/api/playground/trips/plan/route.ts
+  s_44622d612b20b7::t_288f8085353665 2,5-12,15
+src/app/api/playground/trips/planner/route.ts
+  s_44622d612b20b7::t_288f8085353665 1-5
+src/components/trips/generated-plan.tsx
+  s_44622d612b20b7::t_b4d0bfe9501db6 1-56
+src/trips/gemini.ts
+  s_44622d612b20b7::t_288f8085353665 1
+  s_44622d612b20b7::t_8b6c933cf2a84e 2-202
+src/app/(trips)/trips/page.tsx
+  s_44622d612b20b7::t_000d94c47b7c8f 8,10
+tests/integration/env.ts
+  s_44622d612b20b7::t_288f8085353665 39,95
+src/trips/planner.ts
+  s_44622d612b20b7::t_9dc6d15f65d4f4 70-75
+tests/unit/gemini.test.ts
+  s_44622d612b20b7::t_264d377e2f3ba0 1-121
+tests/components/planner-flow.test.tsx
+  s_44622d612b20b7::t_8847ccf2dfdbe1 17-19,22-26,28,97-150
+  s_44622d612b20b7::t_f88a92631da760 151-152
+docs/TRIPS.md
+  s_44622d612b20b7::t_8e4d1dae1882ec 12,33,35-37,39-65,67-68,83-84,100
+  s_44622d612b20b7::t_5bdbf77ea7c876 66,87-95
+  s_44622d612b20b7::t_c4f040420cc0d2 96
+src/components/trips/planner-flow.tsx
+  s_44622d612b20b7::t_b4d0bfe9501db6 4,8-9,15,18-20,31-36,62,83-85,133-136,139-143,148,156-159,162-163,166,175-176,178-180
+src/app-services/trip-planner.ts
+  s_44622d612b20b7::t_288f8085353665 1-49
+tests/integration/trips.test.ts
+  s_44622d612b20b7::t_264d377e2f3ba0 1,115-151,153-162,164-196
+  s_44622d612b20b7::t_8847ccf2dfdbe1 152,163
+  s_44622d612b20b7::t_58aaad4e3c1d2d 197
+README.md
+  s_44622d612b20b7::t_8e4d1dae1882ec 19,37
+src/app/(trips)/layout.tsx
+  s_44622d612b20b7::t_000d94c47b7c8f 21
+src/trips/types.ts
+  s_44622d612b20b7::t_9dc6d15f65d4f4 95-131,133-136,138-139
+.env.example
+  s_44622d612b20b7::t_ab30eb791057be 28-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "c2fb236746c4f592f4c17b3335008f514d7c61cb",
+  "prompts": {},
+  "sessions": {
+    "s_44622d612b20b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ca2ecaa5-1d51-4a2b-b1f5-31235f070c90",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "vipul sharma <vipul.sharma@tiket.com>"
+    }
+  }
+}
