@@ -14,12 +14,18 @@ vi.mock("next/link", () => ({ default: ({ href, children, ...rest }: { href: str
 const json = (data: unknown, ok = true, status = 200) => ({ ok, status, json: async () => data });
 let lastBody: PlanRequest | undefined;
 
+let info: unknown = { mode: "mock" };
+let planOverride: ((body: PlanRequest) => unknown) | undefined;
+
 beforeEach(() => {
   lastBody = undefined;
-  // The route is a thin wrapper over the mock planner, so the component test uses the real planner behind a stubbed fetch.
-  vi.stubGlobal("fetch", vi.fn(async (_url: string, init?: RequestInit) => {
+  info = { mode: "mock" };
+  planOverride = undefined;
+  // The plan route is a thin wrapper over the planner, so the component test uses the real mock planner behind a stubbed fetch.
+  vi.stubGlobal("fetch", vi.fn(async (url: string, init?: RequestInit) => {
+    if (String(url).endsWith("/trips/planner")) return json(info);
     lastBody = JSON.parse(String(init?.body));
-    return json(await new MockTripPlanner().plan(lastBody!));
+    return json(planOverride ? planOverride(lastBody!) : await new MockTripPlanner().plan(lastBody!));
   }));
 });
 
@@ -85,6 +91,62 @@ describe("planner flow", () => {
     await waitFor(() => screen.getByTestId("plan-result"));
     await u.click(screen.getByRole("button", { name: /start over/i }));
     expect(screen.getByLabelText(/where do you want to go/i)).toBeInTheDocument();
+  });
+});
+
+describe("planner flow with Gemini", () => {
+  const generated = {
+    title: "Tokyo in four days", destination: "Tokyo", country: "Japan", tagline: "Neon and noodles.", bestSeason: "March to May",
+    highlights: ["Shibuya"], tips: ["Get a transit card."],
+    itinerary: [
+      { title: "Arrive", items: [{ slot: "morning", title: "Senso-ji", detail: "Go early.", area: "Asakusa", costInr: 500 }] },
+      { title: "Food day", items: [{ slot: "evening", title: "Izakaya", detail: "Small plates.", area: "Shinjuku", costInr: 0 }] },
+    ],
+  };
+
+  it("tells the traveller before sending that the text goes to Google, and not when the mock is active", async () => {
+    const u = userEvent.setup();
+    info = { mode: "gemini", model: "gemini-test" };
+    const { unmount } = render(<PlannerFlow />);
+    await u.click(screen.getByRole("button", { name: /continue/i }));
+    const note = await screen.findByTestId("gemini-disclosure");
+    expect(note).toHaveTextContent(/sent to Google/i);
+    expect(note).toHaveTextContent(/gemini-test/);
+    expect(note).toHaveTextContent(/improve its products/i);
+    unmount();
+
+    info = { mode: "mock" };
+    render(<PlannerFlow />);
+    await u.click(screen.getByRole("button", { name: /continue/i }));
+    expect(screen.queryByTestId("gemini-disclosure")).not.toBeInTheDocument();
+  });
+
+  it("shows the model's itinerary as plain text, names Gemini as the source and links the closest bookable trip", async () => {
+    const u = userEvent.setup();
+    info = { mode: "gemini", model: "gemini-test" };
+    planOverride = () => ({
+      trip: TRIPS.find((t) => t.id === "kyoto")!,
+      generated: { ...generated, tips: ["<img src=x onerror=alert(1)> Get a transit card."] },
+      reasons: ["Written by gemini-test."],
+      caveats: ["AI-written plan. It used no live search."],
+      source: { kind: "model", name: "Gemini (gemini-test)" },
+    });
+    render(<PlannerFlow />);
+    const dest = screen.getByLabelText(/where do you want to go/i);
+    await u.clear(dest);
+    await u.type(dest, "Tokyo");
+    await u.click(screen.getByRole("button", { name: /continue/i }));
+    await u.click(screen.getByTestId("plan-submit"));
+
+    await waitFor(() => expect(screen.getByTestId("generated-plan")).toBeInTheDocument());
+    expect(screen.getByText("Gemini (gemini-test)")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Tokyo in four days" })).toBeInTheDocument();
+    expect(screen.getAllByTestId("generated-day")).toHaveLength(2);
+    expect(screen.getByText(/no live search/i)).toBeInTheDocument();
+    // markup in model output is text, not elements
+    expect(screen.getByTestId("generated-plan").querySelector("img")).toBeNull();
+    expect(screen.getByText(/<img src=x onerror=alert\(1\)>/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /closest ready-made trip: Kyoto/i })).toHaveAttribute("href", "/trips/kyoto");
   });
 });
 

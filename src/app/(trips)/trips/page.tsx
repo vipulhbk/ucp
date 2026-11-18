@@ -5,9 +5,9 @@ import { TripShelf } from "@/components/trips/trip-shelf";
 export const metadata = { title: "Tiket AI Trips · Plan your dream trip", description: "Plan a trip from a short form or pick a ready-made one, then book it through the Universal Commerce Protocol against a simulated merchant." };
 
 const REAL = [
-  ["Mock planner", <>Trips come from eight hand-written itineraries and a rule-based ranker, not an AI model. The planner sits behind a <code>TripPlanner</code> interface, so a model can replace it later without touching the pages.</>],
+  ["Planner: Gemini or a mock", <>With a Gemini API key configured on the server, plans are written by Google&rsquo;s Gemini from what you type (no live web search, so details are not checked). Without a key, or if Gemini fails or is rate-limited, a rule-based mock picks one of eight hand-written itineraries. Each result names which one made it. Both sit behind a <code>TripPlanner</code> interface.</>],
   ["Real protocol", "Booking makes real UCP calls (Create and Update Checkout, then Complete with your authorization) from a platform to a merchant, and every message is inspectable."],
-  ["Simulated merchant and payment", "The packages are fictional demo vouchers and the card is a published test card. Nothing is reserved and no money moves."],
+  ["Simulated merchant and payment", "Only the eight ready-made trips can be booked: the packages are fictional demo vouchers and the card is a published test card. Nothing is reserved and no money moves."],
   ["No travel capability in UCP", "The pinned UCP release has none, so trips are modelled as ordinary catalog items, not as a UCP lodging or travel standard."],
 ] as const;
 

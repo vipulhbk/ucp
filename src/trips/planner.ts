@@ -67,6 +67,12 @@ export function rankTrips(request: PlanRequest, trips: Trip[] = TRIPS): Scored[]
     .map(({ trip, score, reasons }) => ({ trip, score, reasons }));
 }
 
+/** True when the destination the traveller typed names this ready-made trip (city, country or nickname). */
+export function matchesDestination(request: PlanRequest, trip: Trip): boolean {
+  const dest = norm(request.destination);
+  return Boolean(dest) && trip.aliases.some((a) => dest.includes(a) || a.includes(dest));
+}
+
 function caveatsFor(request: PlanRequest, best: Scored): string[] {
   const out: string[] = [];
   const dest = norm(request.destination);
@@ -102,5 +108,3 @@ export class MockTripPlanner implements TripPlanner {
   }
 }
 
-/** The planner the app uses. Swap this line for a model-backed `TripPlanner` when one exists. */
-export const tripPlanner: TripPlanner = new MockTripPlanner();

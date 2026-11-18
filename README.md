@@ -16,7 +16,7 @@ labelled that way. No real card data is ever accepted. This is a demonstration, 
 | M4 Rule-based shopping agent with activity timeline, seven guided scenarios, consent bound to the shown total | **done, tested** (369 tests) |
 | M5 Protocol Inspector (filters, replay of read-only calls, NDJSON export, both webhook ends) and Schema Validator (10 message types, rule checks, scope statement) | **done, tested** (456 tests) |
 | M6 UI polish: overview with spec-fidelity panel, interactive architecture diagram + guided tour, in-app docs viewer, loading/error states, responsive and theme audit | **done, tested** (581 tests; responsive/theme checks were manual) |
-| Tiket AI Trips (`/trips`): Apple-style consumer front end, eight ready-made trips, rule-based mock planner (no AI model), booking through real UCP checkout | **done, tested** (see `docs/TRIPS.md`) |
+| Tiket AI Trips (`/trips`): Apple-style consumer front end, eight ready-made trips, Gemini planner (optional key) with rule-based fallback, booking through real UCP checkout | **done, tested with Gemini stubbed; not yet run against the live API** (see `docs/TRIPS.md`) |
 | M7 Conformance + Playwright · M8 Vercel | not started |
 
 Not deployed to Vercel. See `docs/IMPLEMENTATION_PLAN.md` for the checklist with evidence.
@@ -34,7 +34,7 @@ Try it: open **Merchant Discovery**, then **Checkout Playground** (create → up
 
 Open the **Protocol Inspector** to see every request and both ends of every webhook, or the **Schema Validator** to break a payload on purpose.
 
-Try **Tiket AI Trips** (`/trips`): pick a ready-made trip, see the itinerary and book it through UCP.
+Try **Tiket AI Trips** (`/trips`): pick a ready-made trip, see the itinerary and book it through UCP. Add `GEMINI_API_KEY` to `.env.local` to have Google's Gemini write plans for any destination (otherwise a rule-based mock plans; see `docs/TRIPS.md`).
 
 Try the **AI Agent** (“Find me a wireless headphone under ₹5,000 with noise cancellation.”) or walk through **Guided Scenarios**.
 
