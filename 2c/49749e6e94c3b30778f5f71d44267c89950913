@@ -1,0 +1,54 @@
+README.md
+  s_44622d612b20b7::t_02439cb027bc41 19,37
+src/app/(trips)/trips/[id]/page.tsx
+  s_44622d612b20b7::t_bcff3842d9a9b3 17
+src/app/api/playground/trips/plan/route.ts
+  s_44622d612b20b7::t_d1b6f6fccafeda 2,5-6,9
+docs/UCP_CAPABILITY_MATRIX.md
+  s_44622d612b20b7::t_bcff3842d9a9b3 26
+docs/TRIPS.md
+  s_44622d612b20b7::t_bcff3842d9a9b3 1
+  s_44622d612b20b7::t_02439cb027bc41 12,33,35-39,41-46,61,66
+src/trips/rank.ts
+  s_44622d612b20b7::t_cb84b641dfcfb5 1-67
+tests/components/planner-flow.test.tsx
+  s_44622d612b20b7::t_950931b277ee38 7-8,18,25,32,51,62,75,85,94-95,97,99-121,123-126,129,131,133,136-141
+src/components/trips/trip-shelf.tsx
+  s_44622d612b20b7::t_e090e2302675ae 3,5,11,21-23
+src/trips/planner.ts
+  s_44622d612b20b7::t_cb84b641dfcfb5 2-3,13
+src/trips/types.ts
+  s_44622d612b20b7::t_0e0855dfdb3c27 96
+src/components/trips/planner-flow.tsx
+  s_44622d612b20b7::t_5eea88a78af6f7 4-5,8-10,12,15-17,22-24,26,28,39-41,55-61,69-72,74-75,78,91,94-95,97-115,117,130-133,139,143,167-168,171-183,185,190,197-205,207-213,215-224,226,231-265,267-268
+  s_44622d612b20b7::t_7ca768859e2c1f 96
+src/app/(trips)/trips/page.tsx
+  s_44622d612b20b7::t_e090e2302675ae 2,8-12,15,22,33,37-47
+  s_44622d612b20b7::t_bcff3842d9a9b3 6,27
+  s_44622d612b20b7::t_518492d819bdb1 7,48-49
+tests/integration/trips.test.ts
+  s_44622d612b20b7::t_d1b6f6fccafeda 1
+src/components/trips/trip-card.tsx
+  s_44622d612b20b7::t_5eea88a78af6f7 8
+src/app/(trips)/layout.tsx
+  s_44622d612b20b7::t_e090e2302675ae 21
+  s_44622d612b20b7::t_bcff3842d9a9b3 10
+src/components/shell/nav.ts
+  s_44622d612b20b7::t_bcff3842d9a9b3 25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "2c49749e6e94c3b30778f5f71d44267c89950913",
+  "prompts": {},
+  "sessions": {
+    "s_44622d612b20b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ca2ecaa5-1d51-4a2b-b1f5-31235f070c90",
+        "model": "unknown"
+      },
+      "human_author": "vipul sharma <vipul.sharma@tiket.com>"
+    }
+  }
+}
