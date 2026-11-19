@@ -1,14 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState, type ComponentType } from "react";
+import { useEffect, useMemo, useState, type ComponentType } from "react";
 import { ArrowRight, Baby, Bike, Check, Heart, Loader2, MapPin, Moon, Mountain, Palette, Shuffle, ShoppingBag, Waves } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BffError, post } from "@/lib/api";
+import { BffError, get, post } from "@/lib/api";
 import { rupees } from "@/lib/format";
 import { rankTrips } from "@/trips/rank";
 import { BUDGET_LABEL, BUDGET_TIERS, INTERESTS, INTEREST_LABEL, type BudgetTier, type Interest, type PlanResult } from "@/trips/types";
+import { GeneratedPlan } from "./generated-plan";
 import type { TripSummary } from "./trip-card";
 
 const MAX_INTERESTS = 3;
@@ -17,11 +18,14 @@ const ICON: Record<Interest, ComponentType<{ className?: string; "aria-hidden"?:
 };
 
 type Step = "where" | "about" | "result";
+/** What the server reports about the planner. The provider and model are never shown to the traveller. */
+type PlannerInfo = { mode: "mock" } | { mode: "gemini"; model: string };
 
 /**
- * The three-step planner: where, about you, result. The trip is chosen by the rule-based demo planner on the server
- * (/api/playground/trips/plan) and the result names it. While the traveller chooses, the form previews that same ranking in
- * the browser (`rankTrips`), so the form reacts to every tap, but the result always comes from the server.
+ * The three-step planner: where, about you, result. The server decides whether an AI model or the rule-based mock plans the
+ * trip (/api/playground/trips/plan). The form asks which first, so it can say before anything is sent that the text goes to an
+ * AI service, and the result always says whether an AI or the demo planner wrote the plan. While the traveller chooses, the
+ * form previews the closest ready-made trip in the browser (`rankTrips`).
  */
 export function PlannerFlow({ trips = [] }: { trips?: TripSummary[] }) {
   const [step, setStep] = useState<Step>("where");
@@ -32,6 +36,12 @@ export function PlannerFlow({ trips = [] }: { trips?: TripSummary[] }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [plan, setPlan] = useState<PlanResult | null>(null);
+  const [info, setInfo] = useState<PlannerInfo>({ mode: "mock" });
+  const ai = info.mode === "gemini";
+
+  useEffect(() => {
+    void get<PlannerInfo>("/api/playground/trips/planner").then(setInfo).catch(() => undefined);
+  }, []);
 
   const full = interests.length >= MAX_INTERESTS;
   const toggle = (i: Interest) => setInterests((cur) => (cur.includes(i) ? cur.filter((x) => x !== i) : cur.length >= MAX_INTERESTS ? cur : [...cur, i]));
@@ -71,7 +81,7 @@ export function PlannerFlow({ trips = [] }: { trips?: TripSummary[] }) {
   const stepIndex = step === "where" ? 0 : step === "about" ? 1 : 2;
 
   return (
-    <div className="ap-card mx-auto w-full max-w-xl overflow-hidden p-6 text-left shadow-[var(--ap-shadow-hover)] sm:p-9" data-testid="planner">
+    <div className={`ap-card mx-auto w-full overflow-hidden p-6 text-left shadow-[var(--ap-shadow-hover)] transition-[max-width] duration-500 sm:p-9 ${plan?.generated ? "max-w-2xl" : "max-w-xl"}`} data-testid="planner">
       <ol className="mb-7 flex items-center justify-center gap-2 text-xs text-muted-foreground" aria-label="Progress">
         {([["where", "Where"], ["about", "About you"], ["result", "Your trip"]] as const).map(([id, label], i) => (
           <li key={id} aria-current={step === id ? "step" : undefined} className={`flex items-center gap-2 ${step === id ? "font-semibold text-foreground" : ""}`}>
@@ -112,7 +122,7 @@ export function PlannerFlow({ trips = [] }: { trips?: TripSummary[] }) {
               </div>
             </div>
           )}
-          <p className="text-center text-xs text-muted-foreground">Anything else gets the closest match for your interests, and we will say so.</p>
+          <p className="text-center text-xs text-muted-foreground">{ai ? "Type any city, region or country." : "Anything else gets the closest match for your interests, and we will say so."}</p>
           <div className="flex justify-center pt-1">
             <Button type="submit" className={pill}>Continue <ArrowRight className="size-4" aria-hidden /></Button>
           </div>
@@ -164,8 +174,10 @@ export function PlannerFlow({ trips = [] }: { trips?: TripSummary[] }) {
 
           <div>
             <label htmlFor="notes" className="mb-2 block text-center text-sm">Anything else?</label>
-            <textarea id="notes" value={notes} onChange={(e) => setNotes(e.target.value)} maxLength={500} rows={2} placeholder="E.g. travelling with kids, or avoid night life" className="ap-field resize-none text-sm" />
-            <p className="mt-1.5 text-center text-xs text-muted-foreground">The planner understands a few keywords (kids, quiet, avoid night life, number of days), not full sentences.</p>
+            <textarea id="notes" value={notes} onChange={(e) => setNotes(e.target.value)} maxLength={500} rows={2} placeholder={ai ? "E.g. 5 days, travelling with two kids, we like street food and avoid crowds" : "E.g. travelling with kids, or avoid night life"} className="ap-field resize-none text-sm" />
+            <p className="mt-1.5 text-center text-xs text-muted-foreground">
+              {ai ? "Describe the trip you want in full sentences." : "The planner understands a few keywords (kids, quiet, avoid night life, number of days), not full sentences."}
+            </p>
           </div>
 
           {leader && (
@@ -174,26 +186,64 @@ export function PlannerFlow({ trips = [] }: { trips?: TripSummary[] }) {
                 {/* eslint-disable-next-line @next/next/no-img-element -- decorative static SVG */}
                 <img src={leader.cover} alt="" className="size-16 shrink-0 rounded-xl object-cover" />
                 <div className="min-w-0 flex-1">
-                  <div className="text-[11px] font-semibold uppercase tracking-wide text-primary">Best match so far</div>
+                  <div className="text-[11px] font-semibold uppercase tracking-wide text-primary">{ai ? "Closest ready-made trip" : "Best match so far"}</div>
                   <div className="ap-title truncate text-lg">{leader.destination}, {leader.country}</div>
                   <div className="truncate text-xs text-muted-foreground">{leader.days} days · {BUDGET_LABEL[leader.budgetTier].symbol} · {leader.tagline}</div>
                 </div>
               </div>
-              <p className="mt-1.5 text-center text-[11px] text-muted-foreground">A live preview of the planner&rsquo;s ranking. It updates as you choose.</p>
+              <p className="mt-1.5 text-center text-[11px] text-muted-foreground">{ai ? "The plan itself is written when you press Plan. This is the ready-made trip you could book." : "A live preview of the planner\u2019s ranking. It updates as you choose."}</p>
             </div>
           )}
 
+          {ai && (
+            <p className="rounded-2xl bg-muted p-3 text-center text-xs leading-relaxed text-muted-foreground" data-testid="ai-disclosure">
+              When you press Plan, your destination, interests, budget and notes are sent to an AI service that writes the plan. It may use them to improve its products, so please do not type personal details.
+            </p>
+          )}
           {error && <p role="alert" className="text-center text-sm text-destructive">{error}</p>}
           <div className="flex items-center justify-center gap-5">
             <button type="button" onClick={() => setStep("where")} disabled={busy} className="ap-link text-[15px]">&lsaquo; Back</button>
             <Button type="submit" disabled={busy} className={pill} data-testid="plan-submit">
-              {busy && <Loader2 className="size-4 animate-spin" aria-hidden />} Plan my trip
+              {busy && <Loader2 className="size-4 animate-spin" aria-hidden />} {busy && ai ? "Writing your plan…" : "Plan my trip"}
             </Button>
           </div>
         </form>
       )}
 
-      {step === "result" && plan && (
+      {step === "result" && plan?.generated && (
+        <div className="space-y-6" data-testid="plan-result">
+          <div className="ap-rise relative overflow-hidden rounded-2xl bg-muted px-5 py-9 text-center" style={{ "--i": 0 } as React.CSSProperties}>
+            <Badge variant="secondary" className="mb-3">{plan.source.name}</Badge>
+            <h2 className="ap-title ap-gradient-text text-3xl">{plan.generated.title}</h2>
+            <p className="mt-1 text-muted-foreground">{plan.generated.tagline}</p>
+          </div>
+          <div className="ap-rise" style={{ "--i": 1 } as React.CSSProperties}>
+            <h3 className="mb-2 text-sm font-semibold">How this was planned</h3>
+            <ul className="space-y-1.5 text-sm text-muted-foreground">
+              {plan.reasons.map((r) => (
+                <li key={r} className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-primary" strokeWidth={3} aria-hidden />{r}</li>
+              ))}
+            </ul>
+          </div>
+          {plan.caveats.length > 0 && (
+            <div className="ap-rise rounded-2xl bg-muted p-4 text-sm" role="note" data-testid="plan-caveats" style={{ "--i": 2 } as React.CSSProperties}>
+              <div className="mb-1 font-semibold">Worth knowing</div>
+              <ul className="list-disc space-y-1 pl-5 text-muted-foreground">{plan.caveats.map((c) => <li key={c}>{c}</li>)}</ul>
+            </div>
+          )}
+          <div className="ap-rise" style={{ "--i": 3 } as React.CSSProperties}>
+            <GeneratedPlan plan={plan.generated} />
+          </div>
+          <div className="ap-rise flex flex-wrap items-center justify-center gap-5 pt-1" style={{ "--i": 4 } as React.CSSProperties}>
+            <button type="button" onClick={reset} className="ap-link text-[15px]">Start over</button>
+            <Link href={`/trips/${plan.trip.id}`} className="ap-press inline-flex h-11 items-center gap-2 rounded-full bg-primary px-6 text-[15px] font-medium text-primary-foreground hover:opacity-90">
+              Book the closest ready-made trip: {plan.trip.destination} <ArrowRight className="size-4" aria-hidden />
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {step === "result" && plan && !plan.generated && (
         <div className="space-y-6" data-testid="plan-result">
           <div className="ap-rise relative overflow-hidden rounded-2xl" style={{ "--i": 0 } as React.CSSProperties}>
             {/* eslint-disable-next-line @next/next/no-img-element -- decorative static SVG */}

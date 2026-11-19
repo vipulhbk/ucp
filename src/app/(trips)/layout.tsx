@@ -18,7 +18,7 @@ export default function TripsLayout({ children }: { children: React.ReactNode })
       <main id="main" tabIndex={-1} className="flex-1 outline-none">{children}</main>
       <footer className="border-t border-border px-4 py-8 text-center text-xs leading-relaxed text-muted-foreground md:px-8">
         <p className="mx-auto max-w-3xl">
-          A demonstration. Plans come from a rule-based demo planner with no AI model, and each result says so. The merchant is simulated, bookings are demo vouchers for fictional packages and no real money moves.{" "}
+          A demonstration. Plans are written by an AI model when one is configured and by a rule-based demo planner otherwise, and each result says which. The merchant is simulated, bookings are demo vouchers for fictional packages and no real money moves.{" "}
           <Link href="/architecture" className="ap-link">How it works</Link>
         </p>
       </footer>

@@ -14,15 +14,20 @@ vi.mock("next/link", () => ({ default: ({ href, children, ...rest }: { href: str
 
 const json = (data: unknown, ok = true, status = 200) => ({ ok, status, json: async () => data });
 let lastBody: PlanRequest | undefined;
+let info: unknown = { mode: "mock" };
+let planOverride: ((body: PlanRequest) => unknown) | undefined;
 
 const SUMMARIES: TripSummary[] = TRIPS.map((t) => ({ id: t.id, destination: t.destination, country: t.country, aliases: t.aliases, days: t.days, budgetTier: t.budgetTier, tagline: t.tagline, interests: t.interests, cover: t.cover, packageTotal: 1_000_000 + t.days * 100_000 }));
 
 beforeEach(() => {
   lastBody = undefined;
+  info = { mode: "mock" };
+  planOverride = undefined;
   // The plan route is a thin wrapper over the planner, so the component test uses the real mock planner behind a stubbed fetch.
   vi.stubGlobal("fetch", vi.fn(async (url: string, init?: RequestInit) => {
+    if (String(url).endsWith("/trips/planner")) return json(info);
     lastBody = JSON.parse(String(init?.body));
-    return json(await new MockTripPlanner().plan(lastBody!));
+    return json(planOverride ? planOverride(lastBody!) : await new MockTripPlanner().plan(lastBody!));
   }));
 });
 
@@ -92,12 +97,53 @@ describe("planner flow", () => {
 });
 
 describe("planner flow interactions", () => {
-  it("shows no AI or third-party branding and never asks the server which planner is active", async () => {
+  it("when an AI planner is active it discloses that text is sent to an AI service, without naming the provider or model", async () => {
     const u = userEvent.setup();
-    const { container } = render(<PlannerFlow trips={SUMMARIES} />);
+    info = { mode: "gemini", model: "gemini-test" };
+    const { container, unmount } = render(<PlannerFlow trips={SUMMARIES} />);
     await u.click(screen.getByRole("button", { name: /continue/i }));
+    const note = await screen.findByTestId("ai-disclosure");
+    expect(note).toHaveTextContent(/sent to an AI service/i);
+    expect(note).toHaveTextContent(/improve its products/i);
     expect(container.textContent ?? "").not.toMatch(/gemini|google|powered by/i);
-    expect(vi.mocked(fetch)).not.toHaveBeenCalled();
+    unmount();
+
+    info = { mode: "mock" };
+    render(<PlannerFlow trips={SUMMARIES} />);
+    await u.click(screen.getByRole("button", { name: /continue/i }));
+    expect(screen.queryByTestId("ai-disclosure")).not.toBeInTheDocument();
+  });
+
+  it("shows an AI-written itinerary as plain text, names it an AI-written plan and links the closest bookable trip", async () => {
+    const u = userEvent.setup();
+    info = { mode: "gemini", model: "gemini-test" };
+    planOverride = () => ({
+      trip: TRIPS.find((t) => t.id === "kyoto")!,
+      generated: {
+        title: "Tokyo in four days", destination: "Tokyo", country: "Japan", tagline: "Neon and noodles.", bestSeason: "March to May",
+        highlights: ["Shibuya"], tips: ["<img src=x onerror=alert(1)> Get a transit card."],
+        itinerary: [
+          { title: "Arrive", items: [{ slot: "morning", title: "Senso-ji", detail: "Go early.", area: "Asakusa", costInr: 500 }] },
+          { title: "Food day", items: [{ slot: "evening", title: "Izakaya", detail: "Small plates.", area: "Shinjuku", costInr: 0 }] },
+        ],
+      },
+      reasons: ["Written by an AI model for what you entered."],
+      caveats: ["AI-written plan. It used no live search."],
+      source: { kind: "model", name: "AI-written plan" },
+    });
+    const { container } = render(<PlannerFlow trips={SUMMARIES} />);
+    await u.type(screen.getByLabelText(/where do you want to go/i), "Tokyo");
+    await u.click(screen.getByRole("button", { name: /continue/i }));
+    await u.click(screen.getByTestId("plan-submit"));
+
+    await waitFor(() => expect(screen.getByTestId("generated-plan")).toBeInTheDocument());
+    expect(screen.getByText("AI-written plan")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Tokyo in four days" })).toBeInTheDocument();
+    expect(screen.getAllByTestId("generated-day")).toHaveLength(2);
+    expect(screen.getByTestId("generated-plan").querySelector("img")).toBeNull();
+    expect(screen.getByText(/<img src=x onerror=alert\(1\)>/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /closest ready-made trip: Kyoto/i })).toHaveAttribute("href", "/trips/kyoto");
+    expect(container.textContent ?? "").not.toMatch(/gemini|google|powered by/i);
   });
 
   it("a popular pick fills the destination and moves on to the next step", async () => {
@@ -138,7 +184,6 @@ describe("planner flow interactions", () => {
     expect(screen.getByTestId("day-glance").querySelectorAll("li")).toHaveLength(goa.itinerary.length);
     expect(screen.getByText(/^From ₹/)).toBeInTheDocument();
     expect(screen.getAllByTestId("also-consider")).toHaveLength(2);
-    expect(screen.queryByText(/gemini/i)).not.toBeInTheDocument();
   });
 });
 

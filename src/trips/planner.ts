@@ -12,6 +12,12 @@ export const MOCK_PLANNER_NAME = "Rule-based demo planner (no AI model)";
 
 export const rankTrips = (request: PlanRequest, trips: Trip[] = TRIPS): Scored[] => rank(request, trips);
 
+/** True when the destination the traveller typed names this ready-made trip (city, country or nickname). */
+export function matchesDestination(request: PlanRequest, trip: Trip): boolean {
+  const dest = norm(request.destination);
+  return Boolean(dest) && trip.aliases.some((a) => dest.includes(a) || a.includes(dest));
+}
+
 function caveatsFor(request: PlanRequest, best: Scored): string[] {
   const out: string[] = [];
   const dest = norm(request.destination);

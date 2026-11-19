@@ -12,7 +12,7 @@ const STEPS = [
 ] as const;
 
 const REAL = [
-  ["Rule-based planner, no AI", <>The planner is a rule-based demo with no AI model: it ranks eight hand-written itineraries against what you choose, says why, and says when it could not honour something. It sits behind a <code>TripPlanner</code> interface, so a model could replace it.</>],
+  ["Planner: an AI model or a demo", <>When an AI service is configured on the server, plans are written by an AI model from what you type (no live web search, so details are not checked). Otherwise, or if the AI service fails or is rate-limited, a rule-based demo planner with no AI model picks one of eight hand-written itineraries. Each result says which one made it. Both sit behind a <code>TripPlanner</code> interface.</>],
   ["Real protocol", "Booking makes real UCP calls (Create and Update Checkout, then Complete with your authorization) from a platform to a merchant, and every message is inspectable."],
   ["Simulated merchant and payment", "Only the eight ready-made trips can be booked: the packages are fictional demo vouchers and the card is a published test card. Nothing is reserved and no money moves."],
   ["No travel capability in UCP", "The pinned UCP release has none, so trips are modelled as ordinary catalog items, not as a UCP lodging or travel standard."],
