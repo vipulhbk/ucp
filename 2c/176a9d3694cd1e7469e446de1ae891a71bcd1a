@@ -1,0 +1,42 @@
+src/components/trips/generated-plan.tsx
+  s_44622d612b20b7::t_e2f71b97b2d7b7 1,19-28,60-61,63-75
+  s_44622d612b20b7::t_a5f7c5540b2822 62
+  s_44622d612b20b7::t_663d43f0aca392 76-77
+src/trips/types.ts
+  s_44622d612b20b7::t_e2f71b97b2d7b7 89,131-145
+  s_44622d612b20b7::t_5a8541b1147eb4 90
+src/trips/planner.ts
+  s_44622d612b20b7::t_5a8541b1147eb4 36-37
+  s_44622d612b20b7::t_e2f71b97b2d7b7 38
+tests/unit/gemini.test.ts
+  s_44622d612b20b7::t_e2c8d195344b94 18-22,43-64
+  s_44622d612b20b7::t_bfe1482938744b 65
+tests/components/planner-flow.test.tsx
+  s_44622d612b20b7::t_ebacd4363f3370 41,43,51,53,128-132,151-153
+src/trips/gemini.ts
+  s_44622d612b20b7::t_e2f71b97b2d7b7 32-33,71-87,89,130
+  s_44622d612b20b7::t_5a8541b1147eb4 121,150
+tests/integration/trips.test.ts
+  s_44622d612b20b7::t_e2c8d195344b94 125-129,164,168-169
+src/components/trips/planner-flow.tsx
+  s_44622d612b20b7::t_e2f71b97b2d7b7 33,57
+  s_44622d612b20b7::t_e2c8d195344b94 5,109-116,151
+docs/TRIPS.md
+  s_44622d612b20b7::t_da69e84a7891cb 56-61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "2c176a9d3694cd1e7469e446de1ae891a71bcd1a",
+  "prompts": {},
+  "sessions": {
+    "s_44622d612b20b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ca2ecaa5-1d51-4a2b-b1f5-31235f070c90",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "vipul sharma <vipul.sharma@tiket.com>"
+    }
+  }
+}
