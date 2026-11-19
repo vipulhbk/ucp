@@ -53,6 +53,12 @@ How it works (`src/trips/gemini.ts`, `src/app-services/trip-planner.ts`):
 * On any failure (rate limit, rejected key, timeout, block, bad JSON, schema failure) or over the hourly allowance, the
   rule-based mock answers instead and the first caveat says why. The error body is discarded, so nothing from Google can leak
   into a message.
+* **Origin and stays.** The form asks where the traveller is setting off from (optional). Gemini uses it for a short "getting there"
+  note and returns three stay options across budget bands (name, kind, area, rough nightly price, why). Stay names are the model's
+  suggestions: the prompt asks for well-known properties it is confident exist, or an honest description of a kind of place in a real
+  neighbourhood, and never addresses, ratings or availability. The page says they are not checked against live availability and cannot
+  be booked here (only the ready-made trips can). A plan without stay options fails validation and falls back to the mock. The mock
+  planner only notes the origin in its caveats; the stay in a ready-made trip is the package that can be booked.
 * A generated itinerary has nothing in the merchant catalog and cannot be booked. The result links the **closest ready-made trip**
   and says plainly when it is a different destination. Only the eight ready-made trips are bookable.
 

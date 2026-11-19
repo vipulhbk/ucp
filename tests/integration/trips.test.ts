@@ -122,6 +122,11 @@ describe("trip planning with Gemini configured", () => {
     title: "Tokyo in four days", destination: "Tokyo", country: "Japan", tagline: "Neon and noodles.", bestSeason: "March to May",
     highlights: ["Shibuya", "Tsukiji"], tips: ["Get a transit card."],
     itinerary: [{ title: "Arrive", items: [{ slot: "morning", title: "Senso-ji", detail: "Go early.", area: "Asakusa", costInr: 500 }] }],
+    gettingThere: "Fly direct from Pune.",
+    stays: [
+      { name: "Guesthouse", kind: "guesthouse", area: "Asakusa", nightlyInr: 6000, why: "Quiet." },
+      { name: "Hotel", kind: "hotel", area: "Shinjuku", nightlyInr: 11000, why: "Central." },
+    ],
   };
   const ok = () => new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(goodPlan) }] }, finishReason: "STOP" }] }));
 
@@ -156,10 +161,12 @@ describe("trip planning with Gemini configured", () => {
 
   it("returns a model-written plan labelled as Gemini, and the key travels only in a header", async () => {
     const b = new Browser(srv.origin);
-    const r = await b.post("/api/playground/trips/plan", { destination: "Tokyo", interests: ["art"], notes: "4 days" });
+    const r = await b.post("/api/playground/trips/plan", { destination: "Tokyo", origin: "Pune", interests: ["art"], notes: "4 days" });
     expect(r.status).toBe(200);
     expect(r.body.source).toMatchObject({ kind: "model" });
     expect(r.body.generated.destination).toBe("Tokyo");
+    expect(r.body.generated.stays).toHaveLength(2);
+    expect(JSON.parse(JSON.parse(String(googleCalls[0]!.init!.body)).contents[0].parts[0].text).travellingFrom).toBe("Pune");
     expect(JSON.stringify(r.body)).not.toContain(KEY);
     expect(googleCalls).toHaveLength(1);
     expect(googleCalls[0]!.url).not.toContain(KEY);

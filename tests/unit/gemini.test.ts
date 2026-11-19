@@ -15,6 +15,11 @@ const itinerary = {
   highlights: ["Shibuya crossing", "Tsukiji food walk"],
   itinerary: [{ title: "Arrive and wander", items: [{ slot: "morning", title: "Senso-ji", detail: "Early, before the crowds.", area: "Asakusa", costInr: 1200.4 }] }],
   tips: ["Get a transit card."],
+  gettingThere: "Direct flights from Mumbai take about 9 hours.",
+  stays: [
+    { name: "Boutique guesthouse", kind: "guesthouse", area: "Asakusa", nightlyInr: 6200.6, why: "Quiet streets near Senso-ji." },
+    { name: "Business hotel", kind: "hotel", area: "Shinjuku", nightlyInr: 11000, why: "Central, easy trains." },
+  ],
 };
 const reply = (obj: unknown, status = 200) => new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: typeof obj === "string" ? obj : JSON.stringify(obj) }] }, finishReason: "STOP" }] }), { status });
 const planner = (fetchImpl: typeof fetch, model?: string) => new GeminiTripPlanner({ apiKey: KEY, model, fetchImpl });
@@ -33,6 +38,29 @@ describe("Gemini planner: the request", () => {
     const body = JSON.parse(String(init.body));
     expect(body.generationConfig.responseMimeType).toBe("application/json");
     expect(body.generationConfig.responseJsonSchema.required).toContain("itinerary");
+  });
+
+  it("sends where the traveller is setting off from, and asks for how to get there and for stay options", async () => {
+    const fetchImpl = vi.fn(async () => reply(itinerary));
+    await planner(fetchImpl as never).plan(req({ origin: "Mumbai" }));
+    const body = JSON.parse(String((fetchImpl.mock.calls[0] as unknown as [string, RequestInit])[1].body));
+    expect(JSON.parse(body.contents[0].parts[0].text).travellingFrom).toBe("Mumbai");
+    expect(body.generationConfig.responseJsonSchema.required).toEqual(expect.arrayContaining(["stays", "gettingThere"]));
+    expect(body.systemInstruction.parts[0].text).not.toContain("Mumbai");
+  });
+
+  it("returns the stay options with rounded prices, notes the origin, and says stays are not live or bookable", async () => {
+    const r = await planner((async () => reply(itinerary)) as never).plan(req({ origin: "Mumbai" }));
+    expect(r.generated!.stays).toHaveLength(2);
+    expect(r.generated!.stays[0]!.nightlyInr).toBe(6201);
+    expect(r.generated!.gettingThere).toMatch(/Mumbai/);
+    expect(r.reasons.join(" ")).toMatch(/Travelling from Mumbai/);
+    expect(r.caveats.join(" ")).toMatch(/stay suggestions are not checked/i);
+  });
+
+  it("treats a plan without stay options as unusable", async () => {
+    const { stays: _stays, ...noStays } = itinerary;
+    await expect(planner((async () => reply(noStays)) as never).plan(req())).rejects.toMatchObject({ reason: "invalid_response" });
   });
 
   it("defaults to the documented free-tier flash-lite model", async () => {

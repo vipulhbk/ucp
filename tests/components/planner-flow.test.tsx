@@ -38,7 +38,9 @@ describe("planner flow", () => {
     const dest = screen.getByLabelText(/where do you want to go/i);
     await u.clear(dest);
     await u.type(dest, "Goa");
+    await u.type(screen.getByLabelText(/travelling from/i), "Mumbai");
     await u.click(screen.getByRole("button", { name: /continue/i }));
+    expect(screen.getByText(/planning for/i)).toHaveTextContent("Goa from Mumbai");
 
     await u.click(screen.getByRole("checkbox", { name: /beaches/i }));
     await u.click(screen.getByRole("radio", { name: "₹₹" }));
@@ -46,8 +48,9 @@ describe("planner flow", () => {
     await u.click(screen.getByTestId("plan-submit"));
 
     await waitFor(() => expect(screen.getByTestId("plan-result")).toBeInTheDocument());
-    expect(lastBody).toEqual({ destination: "Goa", interests: ["beaches"], budgetTier: 2, notes: "avoid night life" });
+    expect(lastBody).toEqual({ destination: "Goa", origin: "Mumbai", interests: ["beaches"], budgetTier: 2, notes: "avoid night life" });
     expect(screen.getByText(/no AI model/i)).toBeInTheDocument();
+    expect(screen.getByTestId("plan-caveats")).toHaveTextContent(/travelling from Mumbai/i);
     expect(screen.getByRole("link", { name: /see the itinerary/i })).toHaveAttribute("href", "/trips/goa");
   });
 
@@ -122,6 +125,11 @@ describe("planner flow interactions", () => {
       generated: {
         title: "Tokyo in four days", destination: "Tokyo", country: "Japan", tagline: "Neon and noodles.", bestSeason: "March to May",
         highlights: ["Shibuya"], tips: ["<img src=x onerror=alert(1)> Get a transit card."],
+        gettingThere: "Fly direct from Mumbai, about nine hours.",
+        stays: [
+          { name: "Asakusa guesthouse", kind: "guesthouse", area: "Asakusa", nightlyInr: 6200, why: "Quiet streets." },
+          { name: "Shinjuku hotel", kind: "hotel", area: "Shinjuku", nightlyInr: 11000, why: "Central." },
+        ],
         itinerary: [
           { title: "Arrive", items: [{ slot: "morning", title: "Senso-ji", detail: "Go early.", area: "Asakusa", costInr: 500 }] },
           { title: "Food day", items: [{ slot: "evening", title: "Izakaya", detail: "Small plates.", area: "Shinjuku", costInr: 0 }] },
@@ -140,6 +148,9 @@ describe("planner flow interactions", () => {
     expect(screen.getByText("AI-written plan")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Tokyo in four days" })).toBeInTheDocument();
     expect(screen.getAllByTestId("generated-day")).toHaveLength(2);
+    expect(screen.getByTestId("getting-there")).toHaveTextContent(/from Mumbai/);
+    expect(screen.getAllByTestId("stay-option")).toHaveLength(2);
+    expect(screen.getByTestId("stays")).toHaveTextContent(/not checked against live availability/i);
     expect(screen.getByTestId("generated-plan").querySelector("img")).toBeNull();
     expect(screen.getByText(/<img src=x onerror=alert\(1\)>/)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /closest ready-made trip: Kyoto/i })).toHaveAttribute("href", "/trips/kyoto");

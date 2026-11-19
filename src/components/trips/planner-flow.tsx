@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState, type ComponentType } from "react";
-import { ArrowRight, Baby, Bike, Check, Heart, Loader2, MapPin, Moon, Mountain, Palette, Shuffle, ShoppingBag, Waves } from "lucide-react";
+import { ArrowRight, Baby, Bike, Check, Heart, Loader2, MapPin, Moon, Mountain, Palette, Plane, Shuffle, ShoppingBag, Waves } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BffError, get, post } from "@/lib/api";
@@ -30,6 +30,7 @@ type PlannerInfo = { mode: "mock" } | { mode: "gemini"; model: string };
 export function PlannerFlow({ trips = [] }: { trips?: TripSummary[] }) {
   const [step, setStep] = useState<Step>("where");
   const [destination, setDestination] = useState("");
+  const [origin, setOrigin] = useState("");
   const [interests, setInterests] = useState<Interest[]>([]);
   const [budget, setBudget] = useState<BudgetTier | undefined>();
   const [notes, setNotes] = useState("");
@@ -53,7 +54,7 @@ export function PlannerFlow({ trips = [] }: { trips?: TripSummary[] }) {
     setBusy(true);
     setError(null);
     try {
-      setPlan(await post<PlanResult>("/api/playground/trips/plan", { destination, interests, budgetTier: budget, notes }));
+      setPlan(await post<PlanResult>("/api/playground/trips/plan", { destination, origin, interests, budgetTier: budget, notes }));
       setStep("result");
     } catch (e) {
       setError(e instanceof BffError ? e.info.message : (e as Error).message);
@@ -105,6 +106,14 @@ export function PlannerFlow({ trips = [] }: { trips?: TripSummary[] }) {
             <MapPin className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" aria-hidden />
             <input id="destination" value={destination} onChange={(e) => setDestination(e.target.value)} maxLength={80} placeholder="Paris, Goa, Kyoto…" autoComplete="off" className="ap-field text-lg" style={{ paddingLeft: "3rem" }} />
           </div>
+          <div>
+            <label htmlFor="origin" className="mb-2 block text-center text-sm">Where are you travelling from?</label>
+            <div className="relative">
+              <Plane className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" aria-hidden />
+              <input id="origin" value={origin} onChange={(e) => setOrigin(e.target.value)} maxLength={80} placeholder="Your city, e.g. Mumbai" autoComplete="off" className="ap-field" style={{ paddingLeft: "3rem" }} />
+            </div>
+            <p className="mt-1.5 text-center text-xs text-muted-foreground">{ai ? "Used to suggest how to get there." : "Optional. The demo planner notes it but does not plan the journey."}</p>
+          </div>
           {trips.length > 0 && (
             <div>
               <p className="mb-2.5 text-center text-xs font-medium text-muted-foreground">Or start from a popular pick</p>
@@ -139,7 +148,7 @@ export function PlannerFlow({ trips = [] }: { trips?: TripSummary[] }) {
         >
           <div className="text-center">
             <h2 className="ap-title text-2xl">About you</h2>
-            {destination.trim() && <p className="mt-1 text-sm text-muted-foreground">Planning for <span className="font-medium text-foreground">{destination.trim()}</span></p>}
+            {destination.trim() && <p className="mt-1 text-sm text-muted-foreground">Planning for <span className="font-medium text-foreground">{destination.trim()}</span>{origin.trim() && <> from <span className="font-medium text-foreground">{origin.trim()}</span></>}</p>}
           </div>
           <fieldset>
             <legend className="mb-3 w-full text-center text-sm">What are you interested in? <span className="text-muted-foreground">Pick up to {MAX_INTERESTS}.</span></legend>

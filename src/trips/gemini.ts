@@ -29,6 +29,8 @@ const SYSTEM = [
   "If the destination is empty or is not a real place, choose a suitable real destination for the interests.",
   "Be concrete but honest: name real neighbourhoods and well-known kinds of places. Do not invent specific businesses, addresses, opening hours, prices or availability that you cannot know.",
   "costInr is a rough cost per person in whole Indian rupees (0 if free), consistent with the budget band.",
+  "If travellingFrom is given, gettingThere is 1 or 2 sentences on the usual way to travel from there to the destination with a rough time and cost; if it is empty, gettingThere is an empty string.",
+  "stays: 3 stay options for the destination spread across budget bands (the traveller's band first), best available for the traveller's interests. Prefer well-known real properties you are confident exist there; if you are not sure of a name, describe a kind of place in a real neighbourhood (for example a boutique guesthouse in Gion) instead of inventing a business. nightlyInr is a rough price per room per night in whole rupees. Never give addresses, ratings or availability.",
   "Give each day 2 or 3 items across morning, afternoon and evening, each detail under 200 characters, and 3 to 5 practical tips.",
 ].join(" ");
 
@@ -66,8 +68,25 @@ const RESPONSE_SCHEMA = {
       },
     },
     tips: { type: "array", items: str, minItems: 1, maxItems: 6 },
+    gettingThere: str,
+    stays: {
+      type: "array",
+      minItems: 2,
+      maxItems: 4,
+      items: {
+        type: "object",
+        properties: {
+          name: str,
+          kind: { type: "string", enum: ["hotel", "resort", "hostel", "apartment", "guesthouse", "other"] },
+          area: str,
+          nightlyInr: { type: "integer", minimum: 0 },
+          why: str,
+        },
+        required: ["name", "kind", "area", "nightlyInr", "why"],
+      },
+    },
   },
-  required: ["title", "destination", "country", "tagline", "bestSeason", "highlights", "itinerary", "tips"],
+  required: ["title", "destination", "country", "tagline", "bestSeason", "highlights", "itinerary", "tips", "gettingThere", "stays"],
 } as const;
 
 export interface GeminiOptions {
@@ -99,6 +118,7 @@ export class GeminiTripPlanner implements TripPlanner {
     const same = matchesDestination(request, closest);
 
     const reasons = ["Written by an AI model for what you entered, not picked from the ready-made trips."];
+    if ((request.origin ?? "").trim()) reasons.push(`Travelling from ${(request.origin ?? "").trim()}.`);
     if (request.interests.length) reasons.push(`Interests you chose: ${request.interests.map((i) => INTEREST_LABEL[i].toLowerCase()).join(", ")}.`);
     if (request.budgetTier) reasons.push(`Budget band: ${BUDGET_LABEL[request.budgetTier].symbol} (${BUDGET_LABEL[request.budgetTier].range}).`);
 
@@ -107,7 +127,7 @@ export class GeminiTripPlanner implements TripPlanner {
       generated,
       reasons,
       caveats: [
-        "AI-written plan. It used no live search, so opening hours, prices and availability were not checked, and the costs are rough guesses. Verify before you travel.",
+        "AI-written plan. It used no live search, so opening hours, prices and availability were not checked, and the costs are rough guesses. The stay suggestions are not checked against live availability or prices and cannot be booked here. Verify before you travel.",
         same
           ? `You can book the ready-made ${closest.destination} trip through UCP; it is a fixed package and may differ from this plan.`
           : `Only the eight ready-made trips can be booked through UCP, and none is in ${generated.destination}. The closest bookable one is ${closest.title} (${closest.destination}), a different destination.`,
@@ -127,6 +147,7 @@ export class GeminiTripPlanner implements TripPlanner {
             {
               text: JSON.stringify({
                 destination: request.destination.trim(),
+                travellingFrom: (request.origin ?? "").trim() || null,
                 interests: request.interests.map((i) => INTEREST_LABEL[i]),
                 budget: request.budgetTier ? BUDGET_LABEL[request.budgetTier].range : null,
                 notes: request.notes.trim(),

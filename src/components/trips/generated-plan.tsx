@@ -1,4 +1,4 @@
-import { MapPin, Moon, Sun, Sunrise } from "lucide-react";
+import { BedDouble, MapPin, Moon, Plane, Sun, Sunrise } from "lucide-react";
 import type { GeneratedItinerary } from "@/trips/types";
 
 const SLOT = {
@@ -15,6 +15,16 @@ export function GeneratedPlan({ plan }: { plan: GeneratedItinerary }) {
         {plan.highlights.map((h) => <li key={h} className="rounded-full bg-muted px-3 py-1.5 text-xs">{h}</li>)}
       </ul>
       <p className="text-center text-xs text-muted-foreground">{plan.destination}, {plan.country} · best time: {plan.bestSeason}</p>
+
+      {plan.gettingThere && (
+        <div className="flex items-start gap-3 rounded-2xl bg-muted p-4" data-testid="getting-there">
+          <span className="ap-tile mt-0.5" style={{ "--tile": "#30a2d8" } as React.CSSProperties} aria-hidden><Plane className="size-4" /></span>
+          <div>
+            <div className="text-xs font-medium text-muted-foreground">Getting there</div>
+            <p className="text-sm leading-snug">{plan.gettingThere}</p>
+          </div>
+        </div>
+      )}
 
       <div className="space-y-3">
         {plan.itinerary.map((d, n) => (
@@ -45,6 +55,24 @@ export function GeneratedPlan({ plan }: { plan: GeneratedItinerary }) {
             </ul>
           </details>
         ))}
+      </div>
+
+      <div data-testid="stays">
+        <h3 className="mb-1 text-sm font-semibold">Where to stay</h3>
+        <p className="mb-2 text-xs text-muted-foreground">AI suggestions with rough per-room prices. They are not checked against live availability, and they cannot be booked here.</p>
+        <ul className="ap-group">
+          {plan.stays.map((s, i) => (
+            <li key={i} className="flex items-start gap-3 p-4" data-testid="stay-option">
+              <span className="ap-tile mt-0.5" style={{ "--tile": "#34c759" } as React.CSSProperties} aria-hidden><BedDouble className="size-4" /></span>
+              <div className="min-w-0 flex-1">
+                <div className="text-[15px] font-semibold leading-snug">{s.name}</div>
+                <div className="text-xs text-muted-foreground"><span className="capitalize">{s.kind}</span> · {s.area}</div>
+                <div className="mt-0.5 text-sm leading-snug text-muted-foreground">{s.why}</div>
+              </div>
+              <span className="shrink-0 pt-0.5 text-right text-xs text-muted-foreground">~₹{s.nightlyInr.toLocaleString("en-IN")}<br />a night</span>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div>

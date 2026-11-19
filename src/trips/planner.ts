@@ -33,6 +33,9 @@ function caveatsFor(request: PlanRequest, best: Scored): string[] {
   if (request.notes.trim() && !AVOID_NIGHTLIFE.test(norm(request.notes)) && !WANTS_KIDS.test(norm(request.notes)) && !WANTS_QUIET.test(norm(request.notes)) && !wanted) {
     out.push("Your free-text notes are only partly understood: the demo planner reads a few keywords (kids, quiet, avoid night life, number of days), not full sentences.");
   }
+  if ((request.origin ?? "").trim()) {
+    out.push(`You are travelling from ${(request.origin ?? "").trim()}. The demo planner does not plan the journey or suggest other stays; the stay in this trip is the package you can book.`);
+  }
   if (!request.destination.trim() && request.interests.length === 0 && !request.budgetTier) {
     out.push("You gave no preferences, so this is simply the first trip in the sample list.");
   }

@@ -86,6 +86,8 @@ export type Trip = z.infer<typeof TripSchema>;
 /** What the traveller typed into the planner form. */
 export const PlanRequestSchema = z.object({
   destination: z.string().max(80).default(""),
+  /** Where the traveller is setting off from. Optional; used to suggest how to get there. */
+  origin: z.string().max(80).optional(),
   interests: z.array(z.enum(INTERESTS)).max(3).default([]),
   budgetTier: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]).optional(),
   notes: z.string().max(500).default(""),
@@ -126,6 +128,21 @@ export const GeneratedItinerarySchema = z.object({
     .min(1)
     .max(7),
   tips: z.array(text(200)).min(1).max(6),
+  /** Rough advice on getting from the traveller's origin to the destination. Empty when no origin was given. */
+  gettingThere: z.string().trim().max(400).default(""),
+  /** Stay suggestions across price bands. AI suggestions only: nothing here is checked against live availability or prices. */
+  stays: z
+    .array(
+      z.object({
+        name: text(120),
+        kind: z.enum(["hotel", "resort", "hostel", "apartment", "guesthouse", "other"]),
+        area: text(80),
+        nightlyInr: z.number().min(0).max(1_000_000).transform((n) => Math.round(n)),
+        why: text(200),
+      }),
+    )
+    .min(2)
+    .max(4),
 });
 export type GeneratedItinerary = z.infer<typeof GeneratedItinerarySchema>;
 
