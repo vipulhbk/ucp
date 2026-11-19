@@ -1,4 +1,4 @@
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { priceCheckout } from "@/merchant/pricing";
 import { TRIPS } from "@/trips/samples";
 import { startServer, Browser } from "./env";
@@ -110,88 +110,5 @@ describe("booking a trip through UCP checkout", () => {
     const titles = r.body.body.products.map((p: any) => p.title).join(" | ");
     expect(titles).toMatch(/Paris: Left Bank/);
     expect(titles).toMatch(/Paris: Museum/);
-  });
-});
-
-describe("trip planning with Gemini configured", () => {
-  const realFetch = globalThis.fetch;
-  const KEY = "AIza-test-key-not-real-0123456789";
-  let googleCalls: { url: string; init?: RequestInit }[];
-  let google: () => Response;
-  const goodPlan = {
-    title: "Tokyo in four days", destination: "Tokyo", country: "Japan", tagline: "Neon and noodles.", bestSeason: "March to May",
-    highlights: ["Shibuya", "Tsukiji"], tips: ["Get a transit card."],
-    itinerary: [{ title: "Arrive", items: [{ slot: "morning", title: "Senso-ji", detail: "Go early.", area: "Asakusa", costInr: 500 }] }],
-  };
-  const ok = () => new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: JSON.stringify(goodPlan) }] }, finishReason: "STOP" }] }));
-
-  beforeEach(() => {
-    googleCalls = [];
-    google = ok;
-    process.env.GEMINI_API_KEY = KEY;
-    // Only Google is faked; the in-process test server still gets real fetches.
-    vi.stubGlobal("fetch", (u: RequestInfo | URL, init?: RequestInit) => {
-      const url = String(u);
-      if (!url.startsWith("https://generativelanguage.googleapis.com/")) return realFetch(u, init);
-      googleCalls.push({ url, init });
-      return Promise.resolve(google());
-    });
-  });
-  afterEach(() => {
-    delete process.env.GEMINI_API_KEY;
-    delete process.env.TRIP_PLANNER;
-    delete process.env.GEMINI_PLANS_PER_HOUR;
-    vi.unstubAllGlobals();
-    vi.restoreAllMocks();
-  });
-
-  it("reports which planner is active without ever returning the key", async () => {
-    const b = new Browser(srv.origin);
-    const r = await b.get("/api/playground/trips/planner");
-    expect(r.body).toEqual({ mode: "gemini", model: "gemini-3.5-flash-lite" });
-    expect(JSON.stringify(r.body)).not.toContain(KEY);
-    delete process.env.GEMINI_API_KEY;
-    expect((await b.get("/api/playground/trips/planner")).body).toEqual({ mode: "mock" });
-  });
-
-  it("returns a model-written plan labelled as Gemini, and the key travels only in a header", async () => {
-    const b = new Browser(srv.origin);
-    const r = await b.post("/api/playground/trips/plan", { destination: "Tokyo", interests: ["art"], notes: "4 days" });
-    expect(r.status).toBe(200);
-    expect(r.body.source).toMatchObject({ kind: "model" });
-    expect(r.body.generated.destination).toBe("Tokyo");
-    expect(JSON.stringify(r.body)).not.toContain(KEY);
-    expect(googleCalls).toHaveLength(1);
-    expect(googleCalls[0]!.url).not.toContain(KEY);
-    expect((googleCalls[0]!.init!.headers as Record<string, string>)["x-goog-api-key"]).toBe(KEY);
-  });
-
-  it("falls back to the labelled mock plan when Gemini is rate limited", async () => {
-    vi.spyOn(console, "warn").mockImplementation(() => undefined);
-    google = () => new Response("quota", { status: 429 });
-    const r = await new Browser(srv.origin).post("/api/playground/trips/plan", { destination: "Paris", interests: [], notes: "" });
-    expect(r.status).toBe(200);
-    expect(r.body.source.kind).toBe("mock");
-    expect(r.body.trip.id).toBe("paris");
-    expect(r.body.caveats[0]).toMatch(/rate limit/i);
-  });
-
-  it("TRIP_PLANNER=mock forces the mock and never calls Google", async () => {
-    process.env.TRIP_PLANNER = "mock";
-    const r = await new Browser(srv.origin).post("/api/playground/trips/plan", { destination: "Goa", interests: [], notes: "" });
-    expect(r.body.source.kind).toBe("mock");
-    expect(googleCalls).toHaveLength(0);
-  });
-
-  it("stops calling Gemini for a visitor who exceeds the hourly allowance, and says so", async () => {
-    process.env.GEMINI_PLANS_PER_HOUR = "2";
-    const b = new Browser(srv.origin);
-    const plan = () => b.post("/api/playground/trips/plan", { destination: "Tokyo", interests: [], notes: "" });
-    expect((await plan()).body.source.kind).toBe("model");
-    expect((await plan()).body.source.kind).toBe("model");
-    const third = await plan();
-    expect(third.body.source.kind).toBe("mock");
-    expect(third.body.caveats[0]).toMatch(/hourly allowance/i);
-    expect(googleCalls).toHaveLength(2);
   });
 });

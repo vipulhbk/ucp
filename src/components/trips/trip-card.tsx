@@ -5,7 +5,7 @@ import type { TripView } from "@/app-services/trips";
 import { BUDGET_LABEL, INTEREST_LABEL } from "@/trips/types";
 
 /** What a tile needs. Narrower than the full trip so the shelf (a client component) does not ship every itinerary. */
-export type TripSummary = Pick<TripView, "id" | "destination" | "country" | "days" | "budgetTier" | "tagline" | "interests" | "cover" | "packageTotal">;
+export type TripSummary = Pick<TripView, "id" | "destination" | "country" | "aliases" | "days" | "budgetTier" | "tagline" | "interests" | "cover" | "packageTotal">;
 
 /** One ready-made trip, as a tile. The cover is decorative artwork, not a photograph of the place. */
 export function TripCard({ trip, className = "" }: { trip: TripSummary; className?: string }) {

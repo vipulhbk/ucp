@@ -92,51 +92,9 @@ export const PlanRequestSchema = z.object({
 });
 export type PlanRequest = z.infer<typeof PlanRequestSchema>;
 
-/**
- * An itinerary a model wrote for whatever the traveller asked, in any destination. It is *not* a `Trip`: it has no id, cover
- * or bookables, because a model cannot create merchant catalog items. Every field is length-capped here because a model's
- * output is untrusted input, and it is only ever rendered as plain text.
- */
-const text = (max: number) => z.string().trim().min(1).max(max);
-export const GeneratedItinerarySchema = z.object({
-  title: text(100),
-  destination: text(80),
-  country: text(60),
-  tagline: text(160),
-  bestSeason: text(60),
-  highlights: z.array(text(120)).min(2).max(6),
-  itinerary: z
-    .array(
-      z.object({
-        title: text(100),
-        items: z
-          .array(
-            z.object({
-              slot: z.enum(SLOTS),
-              title: text(120),
-              detail: text(300),
-              area: text(80),
-              costInr: z.number().min(0).max(500_000).transform((n) => Math.round(n)),
-            }),
-          )
-          .min(1)
-          .max(5),
-      }),
-    )
-    .min(1)
-    .max(7),
-  tips: z.array(text(200)).min(1).max(6),
-});
-export type GeneratedItinerary = z.infer<typeof GeneratedItinerarySchema>;
-
 export interface PlanResult {
-  /**
-   * The ready-made trip this result links to. For the mock planner it is the plan itself. For a model it is only the closest
-   * trip that can actually be booked, because a generated itinerary has nothing in the merchant catalog.
-   */
+  /** The ready-made trip the planner chose. It is a real catalog trip, so it can be booked. */
   trip: Trip;
-  /** Present when a model wrote an itinerary of its own. Absent for the mock, whose plan is `trip`. */
-  generated?: GeneratedItinerary;
   /** Why this trip was chosen, in plain words. The mock explains its rules; a model would explain its reasoning. */
   reasons: string[];
   /** Notes the planner could not honour (for example a destination it has no trip for). */

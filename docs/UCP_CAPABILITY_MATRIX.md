@@ -23,7 +23,7 @@ Nothing is marked "Done" until it has a passing test (see `IMPLEMENTATION_PLAN.m
 | Loyalty | `dev.ucp.common.loyalty` (extension) | Not in v1 | — | |
 | AP2 mandates | payment extension | **Not implemented** | **Not implemented** | no cryptographic payment authorization is claimed anywhere in the UI |
 | Lodging booking | (draft spec; name not verified) | N/A (draft) | N/A | draft spec, excluded by the version pin |
-| Travel packages (Tiket AI Trips demo) | none: ordinary `dev.ucp.shopping.checkout` line items | Simulated catalog items (`Travel > Stays`, `Travel > Experiences`, `digital`) | Mock planner (no AI model) | Not a UCP travel capability. See `TRIPS.md` |
+| Travel packages (AI Trips demo) | none: ordinary `dev.ucp.shopping.checkout` line items | Simulated catalog items (`Travel > Stays`, `Travel > Experiences`, `digital`) | Mock planner (no AI model) | Not a UCP travel capability. See `TRIPS.md` |
 
 ## Transports
 

@@ -4,7 +4,8 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { PlannerFlow } from "@/components/trips/planner-flow";
-import { TripCard } from "@/components/trips/trip-card";
+import { TripCard, type TripSummary } from "@/components/trips/trip-card";
+import { rankTrips } from "@/trips/rank";
 import { MockTripPlanner } from "@/trips/planner";
 import { TRIPS } from "@/trips/samples";
 import type { PlanRequest } from "@/trips/types";
@@ -14,25 +15,21 @@ vi.mock("next/link", () => ({ default: ({ href, children, ...rest }: { href: str
 const json = (data: unknown, ok = true, status = 200) => ({ ok, status, json: async () => data });
 let lastBody: PlanRequest | undefined;
 
-let info: unknown = { mode: "mock" };
-let planOverride: ((body: PlanRequest) => unknown) | undefined;
+const SUMMARIES: TripSummary[] = TRIPS.map((t) => ({ id: t.id, destination: t.destination, country: t.country, aliases: t.aliases, days: t.days, budgetTier: t.budgetTier, tagline: t.tagline, interests: t.interests, cover: t.cover, packageTotal: 1_000_000 + t.days * 100_000 }));
 
 beforeEach(() => {
   lastBody = undefined;
-  info = { mode: "mock" };
-  planOverride = undefined;
   // The plan route is a thin wrapper over the planner, so the component test uses the real mock planner behind a stubbed fetch.
   vi.stubGlobal("fetch", vi.fn(async (url: string, init?: RequestInit) => {
-    if (String(url).endsWith("/trips/planner")) return json(info);
     lastBody = JSON.parse(String(init?.body));
-    return json(planOverride ? planOverride(lastBody!) : await new MockTripPlanner().plan(lastBody!));
+    return json(await new MockTripPlanner().plan(lastBody!));
   }));
 });
 
 describe("planner flow", () => {
   it("walks where → about you → result, sends exactly what was entered, and labels the planner a mock", async () => {
     const u = userEvent.setup();
-    render(<PlannerFlow />);
+    render(<PlannerFlow trips={SUMMARIES} />);
     const dest = screen.getByLabelText(/where do you want to go/i);
     await u.clear(dest);
     await u.type(dest, "Goa");
@@ -51,7 +48,7 @@ describe("planner flow", () => {
 
   it("allows at most three interests and explains why a fourth cannot be picked", async () => {
     const u = userEvent.setup();
-    render(<PlannerFlow />);
+    render(<PlannerFlow trips={SUMMARIES} />);
     await u.click(screen.getByRole("button", { name: /continue/i }));
     for (const name of [/^art/i, /^kids/i, /^sports/i]) await u.click(screen.getByRole("checkbox", { name }));
     expect(screen.getByRole("checkbox", { name: /shopping/i })).toBeDisabled();
@@ -62,7 +59,7 @@ describe("planner flow", () => {
 
   it("shows the planner's caveats instead of hiding them (a destination it has no trip for)", async () => {
     const u = userEvent.setup();
-    render(<PlannerFlow />);
+    render(<PlannerFlow trips={SUMMARIES} />);
     const dest = screen.getByLabelText(/where do you want to go/i);
     await u.clear(dest);
     await u.type(dest, "Reykjavik");
@@ -75,7 +72,7 @@ describe("planner flow", () => {
   it("surfaces a server error and lets the traveller go back", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => json({ error: { kind: "bad_request", message: "invalid plan request" } }, false, 400)));
     const u = userEvent.setup();
-    render(<PlannerFlow />);
+    render(<PlannerFlow trips={SUMMARIES} />);
     await u.click(screen.getByRole("button", { name: /continue/i }));
     await u.click(screen.getByTestId("plan-submit"));
     expect(await screen.findByRole("alert")).toHaveTextContent(/invalid plan request/);
@@ -85,7 +82,7 @@ describe("planner flow", () => {
 
   it("start over returns to the first step", async () => {
     const u = userEvent.setup();
-    render(<PlannerFlow />);
+    render(<PlannerFlow trips={SUMMARIES} />);
     await u.click(screen.getByRole("button", { name: /continue/i }));
     await u.click(screen.getByTestId("plan-submit"));
     await waitFor(() => screen.getByTestId("plan-result"));
@@ -94,59 +91,54 @@ describe("planner flow", () => {
   });
 });
 
-describe("planner flow with Gemini", () => {
-  const generated = {
-    title: "Tokyo in four days", destination: "Tokyo", country: "Japan", tagline: "Neon and noodles.", bestSeason: "March to May",
-    highlights: ["Shibuya"], tips: ["Get a transit card."],
-    itinerary: [
-      { title: "Arrive", items: [{ slot: "morning", title: "Senso-ji", detail: "Go early.", area: "Asakusa", costInr: 500 }] },
-      { title: "Food day", items: [{ slot: "evening", title: "Izakaya", detail: "Small plates.", area: "Shinjuku", costInr: 0 }] },
-    ],
-  };
-
-  it("tells the traveller before sending that the text goes to Google, and not when the mock is active", async () => {
+describe("planner flow interactions", () => {
+  it("shows no AI or third-party branding and never asks the server which planner is active", async () => {
     const u = userEvent.setup();
-    info = { mode: "gemini", model: "gemini-test" };
-    const { unmount } = render(<PlannerFlow />);
+    const { container } = render(<PlannerFlow trips={SUMMARIES} />);
     await u.click(screen.getByRole("button", { name: /continue/i }));
-    const note = await screen.findByTestId("gemini-disclosure");
-    expect(note).toHaveTextContent(/sent to Google/i);
-    expect(note).toHaveTextContent(/gemini-test/);
-    expect(note).toHaveTextContent(/improve its products/i);
-    unmount();
-
-    info = { mode: "mock" };
-    render(<PlannerFlow />);
-    await u.click(screen.getByRole("button", { name: /continue/i }));
-    expect(screen.queryByTestId("gemini-disclosure")).not.toBeInTheDocument();
+    expect(container.textContent ?? "").not.toMatch(/gemini|google|powered by/i);
+    expect(vi.mocked(fetch)).not.toHaveBeenCalled();
   });
 
-  it("shows the model's itinerary as plain text, names Gemini as the source and links the closest bookable trip", async () => {
+  it("a popular pick fills the destination and moves on to the next step", async () => {
     const u = userEvent.setup();
-    info = { mode: "gemini", model: "gemini-test" };
-    planOverride = () => ({
-      trip: TRIPS.find((t) => t.id === "kyoto")!,
-      generated: { ...generated, tips: ["<img src=x onerror=alert(1)> Get a transit card."] },
-      reasons: ["Written by gemini-test."],
-      caveats: ["AI-written plan. It used no live search."],
-      source: { kind: "model", name: "Gemini (gemini-test)" },
-    });
-    render(<PlannerFlow />);
+    render(<PlannerFlow trips={SUMMARIES} />);
+    await u.click(screen.getByRole("button", { name: "Kyoto" }));
+    expect(screen.getByText(/planning for/i)).toHaveTextContent("Kyoto");
+    expect(screen.getByTestId("live-match")).toHaveTextContent("Kyoto");
+  });
+
+  it("surprise me picks one of the trips", async () => {
+    const u = userEvent.setup();
+    render(<PlannerFlow trips={SUMMARIES} />);
+    await u.click(screen.getByTestId("surprise"));
+    expect(screen.getByTestId("live-match")).toBeInTheDocument();
+    expect(SUMMARIES.some((t) => screen.getByText(/planning for/i).textContent?.includes(t.destination))).toBe(true);
+  });
+
+  it("previews the best match as interests and budget change", async () => {
+    const u = userEvent.setup();
+    render(<PlannerFlow trips={SUMMARIES} />);
+    await u.click(screen.getByRole("button", { name: /continue/i }));
+    await u.click(screen.getByRole("checkbox", { name: /beaches/i }));
+    await u.click(screen.getByRole("radio", { name: "₹₹" }));
+    const expected = rankTrips({ destination: "", interests: ["beaches"], budgetTier: 2, notes: "" }, SUMMARIES)[0]!.trip;
+    expect(screen.getByTestId("live-match")).toHaveTextContent(expected.destination);
+  });
+
+  it("the result shows the price, the days at a glance and two other trips", async () => {
+    const u = userEvent.setup();
+    render(<PlannerFlow trips={SUMMARIES} />);
     const dest = screen.getByLabelText(/where do you want to go/i);
-    await u.clear(dest);
-    await u.type(dest, "Tokyo");
+    await u.type(dest, "Goa");
     await u.click(screen.getByRole("button", { name: /continue/i }));
     await u.click(screen.getByTestId("plan-submit"));
-
-    await waitFor(() => expect(screen.getByTestId("generated-plan")).toBeInTheDocument());
-    expect(screen.getByText("Gemini (gemini-test)")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Tokyo in four days" })).toBeInTheDocument();
-    expect(screen.getAllByTestId("generated-day")).toHaveLength(2);
-    expect(screen.getByText(/no live search/i)).toBeInTheDocument();
-    // markup in model output is text, not elements
-    expect(screen.getByTestId("generated-plan").querySelector("img")).toBeNull();
-    expect(screen.getByText(/<img src=x onerror=alert\(1\)>/)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /closest ready-made trip: Kyoto/i })).toHaveAttribute("href", "/trips/kyoto");
+    await waitFor(() => screen.getByTestId("plan-result"));
+    const goa = TRIPS.find((t) => t.id === "goa")!;
+    expect(screen.getByTestId("day-glance").querySelectorAll("li")).toHaveLength(goa.itinerary.length);
+    expect(screen.getByText(/^From ₹/)).toBeInTheDocument();
+    expect(screen.getAllByTestId("also-consider")).toHaveLength(2);
+    expect(screen.queryByText(/gemini/i)).not.toBeInTheDocument();
   });
 });
 

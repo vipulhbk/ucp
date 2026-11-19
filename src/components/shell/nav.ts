@@ -22,7 +22,7 @@ export const NAV: NavItem[] = [
   { href: "/webhooks", label: "Webhook Inspector", icon: Receipt, status: "ready" },
   { href: "/inspector", label: "Protocol Inspector", icon: Activity, status: "ready" },
   { href: "/validator", label: "Schema Validator", icon: ShieldCheck, status: "ready" },
-  { href: "/trips", label: "Tiket AI Trips", icon: Plane, status: "ready" },
+  { href: "/trips", label: "AI Trips", icon: Plane, status: "ready" },
   { href: "/docs", label: "Documentation", icon: ScrollText, status: "ready" },
 ];
 

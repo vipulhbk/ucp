@@ -14,7 +14,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/trips/[id]">) {
   const t = tripViewById((await params).id);
-  return { title: t ? `${t.title} · Tiket AI Trips` : "Trip not found" };
+  return { title: t ? `${t.title} · AI Trips` : "Trip not found" };
 }
 
 const SLOT = {
